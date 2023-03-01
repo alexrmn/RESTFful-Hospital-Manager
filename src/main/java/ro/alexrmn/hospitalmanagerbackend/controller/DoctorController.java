@@ -30,8 +30,4 @@ public class DoctorController {
         return doctorRepository.findById(doctorId).orElseThrow(RuntimeException::new);
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
 }

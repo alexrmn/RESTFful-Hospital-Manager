@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ro.alexrmn.hospitalmanagerbackend.model.User;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateUserDto;
-import ro.alexrmn.hospitalmanagerbackend.repository.UserRepository;
 import ro.alexrmn.hospitalmanagerbackend.service.UserService;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
-public class HomepageController {
+public class AuthenticationController {
 
     private final UserService userService;
 
