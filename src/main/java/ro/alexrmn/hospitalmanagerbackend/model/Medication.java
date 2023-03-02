@@ -2,17 +2,19 @@ package ro.alexrmn.hospitalmanagerbackend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Data
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@SuperBuilder
+@Table(name = "medications")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseEntity {
+public class Medication {
 
     @Id
     @GeneratedValue
@@ -20,4 +22,6 @@ public class BaseEntity {
 
     private String name;
 
+    @ManyToMany(mappedBy = "medications")
+    private List<Appointment> appointments;
 }
