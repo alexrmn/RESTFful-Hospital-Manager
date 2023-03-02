@@ -1,20 +1,18 @@
 package ro.alexrmn.hospitalmanagerbackend.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-
 @Data
 @Entity
-@Table(name = "doctors")
+@Table(name = "admins")
 @SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
-public class Doctor extends User{
+//@AllArgsConstructor
+public class Admin extends User {
 
-    @ManyToOne
-    private Specialty specialty;
 }

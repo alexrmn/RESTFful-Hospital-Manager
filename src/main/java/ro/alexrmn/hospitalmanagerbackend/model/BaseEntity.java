@@ -6,15 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-
 @Data
 @Entity
-@Table(name = "doctors")
+@Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Doctor extends User{
+public class BaseEntity {
 
-    @ManyToOne
-    private Specialty specialty;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
 }

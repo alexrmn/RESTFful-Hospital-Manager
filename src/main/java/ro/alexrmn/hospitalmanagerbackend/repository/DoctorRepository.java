@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
 
 @Repository
-public interface DoctorRepository extends JpaRepository<Doctor, Long> {
+public interface DoctorRepository extends JpaRepository<Doctor, String> {
 }
