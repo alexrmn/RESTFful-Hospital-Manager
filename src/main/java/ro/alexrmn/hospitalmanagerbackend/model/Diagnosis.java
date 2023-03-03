@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +13,10 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "diagnoses")
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Diagnosis {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    private String name;
+public class Diagnosis extends  NamedResource{
 
     @ManyToMany(mappedBy = "diagnoses")
     private List<Appointment> appointments;

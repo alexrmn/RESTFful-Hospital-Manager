@@ -2,25 +2,19 @@ package ro.alexrmn.hospitalmanagerbackend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "procedures")
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Procedure {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    private String name;
+public class Procedure extends NamedResource {
 
     @ManyToMany(mappedBy = "procedures")
     private List<Appointment> appointments;
