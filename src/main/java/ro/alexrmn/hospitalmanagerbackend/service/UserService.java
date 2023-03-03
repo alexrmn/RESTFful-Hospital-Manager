@@ -18,7 +18,6 @@ public class UserService {
     public User createUser(CreateUserDto createUserDto){
         User user = User.builder()
                 .email(createUserDto.getEmail())
-                .username((createUserDto.getUsername()))
                 .password(passwordEncoder.encode(createUserDto.getPassword()))
                 .build();
 

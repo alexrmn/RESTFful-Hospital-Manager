@@ -25,9 +25,5 @@ public class DoctorController {
         return doctorRepository.save(doctor);
     }
 
-    @GetMapping("/{doctorId}")
-    public Doctor getDoctorById(@PathVariable Long doctorId){
-        return doctorRepository.findById(doctorId).orElseThrow(RuntimeException::new);
-    }
 
 }

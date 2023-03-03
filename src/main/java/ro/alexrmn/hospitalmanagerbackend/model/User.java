@@ -12,25 +12,23 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Entity
-@Getter
-@Setter
+@Inheritance(strategy = InheritanceType.JOINED)
+@Data
 @SuperBuilder
 @NoArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String username;
-
     private String email;
 
     private String password;
 
     private String roles;
+
+    private String firstName;
+
+    private String lastName;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -44,7 +42,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override

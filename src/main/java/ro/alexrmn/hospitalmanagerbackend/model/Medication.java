@@ -1,27 +1,22 @@
 package ro.alexrmn.hospitalmanagerbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-
 @Data
 @Entity
-@Table(name = "doctors")
+@Table(name = "medications")
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Doctor extends User{
+public class Medication extends NamedResource {
 
-    @ManyToOne
-    private Specialty specialty;
-
-    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @ManyToMany(mappedBy = "medications")
     private List<Appointment> appointments;
 }
