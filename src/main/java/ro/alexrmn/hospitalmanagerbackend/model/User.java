@@ -10,29 +10,47 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @SuperBuilder
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
 
     @Id
     private String email;
 
+    private String username;
+
     private String password;
 
-    private String roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(	name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+
+    private Set<Role> roles = new HashSet<>();
 
     private String firstName;
 
     private String lastName;
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(roles.split(",")).map(SimpleGrantedAuthority::new).toList();
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -42,7 +60,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

@@ -14,7 +14,7 @@ import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.PatientRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.SpecialtyRepository;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -25,43 +25,43 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private final PasswordEncoder encoder;
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        //creating specialties
-        Specialty cardiology = Specialty.builder()
-                .name("Cardiology")
-                .build();
-        specialtyRepository.save(cardiology);
-
-        //creating doctors
-        Doctor doctor1 = Doctor.builder()
-                .email("doctor1@mail.com")
-                .password(encoder.encode("doctor1"))
-                .roles("ROLE_DOCTOR")
-                .firstName("Gregory")
-                .lastName("House")
-                .specialty(cardiology)
-                .build();
-        doctorRepository.save(doctor1);
-
-        //creating patients
-        Patient patient1 = Patient.builder()
-                .email("patient1@mail.com")
-                .password(encoder.encode("patient1"))
-                .roles("ROLE_PATIENT")
-                .firstName("Will")
-                .lastName("Smith")
-                .build();
-
-        patientRepository.save(patient1);
-
-        //creating admins
-        Admin admin1 = Admin.builder()
-                .email("admin1@mail.com")
-                .password(encoder.encode("admin1"))
-                .roles("ROLE_ADMIN")
-                .firstName("Morgan")
-                .lastName("Freeman")
-                .build();
-
-        adminRepository.save(admin1);
+//        //creating specialties
+//        Specialty cardiology = Specialty.builder()
+//                .name("Cardiology")
+//                .build();
+//        specialtyRepository.save(cardiology);
+//
+//        //creating doctors
+//        Doctor doctor1 = Doctor.builder()
+//                .email("doctor1@mail.com")
+//                .password(encoder.encode("doctor1"))
+//                .roles("ROLE_DOCTOR")
+//                .firstName("Gregory")
+//                .lastName("House")
+//                .specialty(cardiology)
+//                .build();
+//        doctorRepository.save(doctor1);
+//
+//        //creating patients
+//        Patient patient1 = Patient.builder()
+//                .email("patient1@mail.com")
+//                .password(encoder.encode("patient1"))
+//                .roles("ROLE_PATIENT")
+//                .firstName("Will")
+//                .lastName("Smith")
+//                .build();
+//
+//        patientRepository.save(patient1);
+//
+//        //creating admins
+//        Admin admin1 = Admin.builder()
+//                .email("admin1@mail.com")
+//                .password(encoder.encode("admin1"))
+//                .roles("ROLE_ADMIN")
+//                .firstName("Morgan")
+//                .lastName("Freeman")
+//                .build();
+//
+//        adminRepository.save(admin1);
     }
 }
