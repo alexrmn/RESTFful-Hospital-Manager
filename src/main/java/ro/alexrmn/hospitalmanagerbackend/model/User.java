@@ -22,16 +22,17 @@ import java.util.stream.Collectors;
 @Table(name = "users")
 public class User implements UserDetails {
 
-    @Id
+
     private String email;
 
+    @Id
     private String username;
 
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(	name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "user_username"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
 
     private Set<Role> roles = new HashSet<>();
