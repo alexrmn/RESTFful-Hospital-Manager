@@ -1,6 +1,7 @@
 package ro.alexrmn.hospitalmanagerbackend.model;
 
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 public class NamedResource {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
