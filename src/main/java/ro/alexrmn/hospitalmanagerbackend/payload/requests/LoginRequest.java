@@ -1,4 +1,4 @@
-package payload.requests;
+package ro.alexrmn.hospitalmanagerbackend.payload.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

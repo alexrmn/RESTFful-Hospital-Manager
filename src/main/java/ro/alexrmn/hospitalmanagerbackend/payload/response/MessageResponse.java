@@ -1,4 +1,4 @@
-package payload;
+package ro.alexrmn.hospitalmanagerbackend.payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
