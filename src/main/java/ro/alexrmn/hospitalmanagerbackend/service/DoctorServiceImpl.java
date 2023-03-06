@@ -14,6 +14,7 @@ import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.RoleRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.SpecialtyRepository;
+import ro.alexrmn.hospitalmanagerbackend.repository.UserRepository;
 
 import java.util.List;
 import java.util.Set;
@@ -23,16 +24,17 @@ import java.util.Set;
 public class DoctorServiceImpl implements DoctorService{
 
     private final DoctorRepository doctorRepository;
+    private final UserRepository userRepository;
     private final SpecialtyRepository specialtyRepository;
     private final PasswordEncoder encoder;
     private final RoleRepository roleRepository;
 
     @Override
     public Doctor saveDoctor(CreateDoctorDto createDoctorDto) {
-        if(doctorRepository.existsByUsername(createDoctorDto.getUsername())) {
+        if(userRepository.existsByUsername(createDoctorDto.getUsername())) {
             throw new EntityExistsException("Couldn't create doctor. A user with that username already exists");
         }
-        if(doctorRepository.existsByEmail(createDoctorDto.getEmail())) {
+        if(userRepository.existsByEmail(createDoctorDto.getEmail())) {
             throw new EntityExistsException("Couldn't create doctor. A user with that email already exists");
         }
 

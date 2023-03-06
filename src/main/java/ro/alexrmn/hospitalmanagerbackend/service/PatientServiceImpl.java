@@ -12,6 +12,7 @@ import ro.alexrmn.hospitalmanagerbackend.model.dto.CreatePatientDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.PatientDto;
 import ro.alexrmn.hospitalmanagerbackend.repository.PatientRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.RoleRepository;
+import ro.alexrmn.hospitalmanagerbackend.repository.UserRepository;
 
 
 import java.util.List;
@@ -22,15 +23,16 @@ import java.util.Set;
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder encoder;
     private final RoleRepository roleRepository;
 
     @Override
     public Patient savePatient(CreatePatientDto createPatientDto) {
-        if (patientRepository.existsByUsername(createPatientDto.getUsername())) {
+        if(userRepository.existsByUsername(createPatientDto.getUsername())) {
             throw new EntityExistsException("Couldn't create account. A user with that username already exists");
         }
-        if (patientRepository.existsByEmail(createPatientDto.getEmail())) {
+        if(userRepository.existsByEmail(createPatientDto.getEmail())) {
             throw new EntityExistsException("Couldn't create account. A user with that email already exists");
         }
         Role role = roleRepository.findByName(ERole.ROLE_PATIENT)

@@ -30,6 +30,7 @@ public class Doctor extends User{
         return DoctorDto.builder()
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
+                .email(this.getEmail())
                 .specialtyName(specialty.getName())
                 .build();
 
