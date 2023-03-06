@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class CreateUserDto {
 
     @NotBlank(message = "First name must not be blank")
     private String firstName;
@@ -19,7 +19,13 @@ public class UserDto {
     @NotBlank(message = "Last name must not be blank")
     private String lastName;
 
+    @NotBlank(message = "Username must not be blank")
+    private String username;
+
     @NotBlank(message = "Email must not be blank")
     @Email
     private String email;
+
+    @NotBlank(message = "Password must not be blank")
+    private String password;
 }

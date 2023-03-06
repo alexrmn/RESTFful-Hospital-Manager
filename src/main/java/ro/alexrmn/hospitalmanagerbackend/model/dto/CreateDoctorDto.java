@@ -10,8 +10,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctorDto extends UserDto {
+public class CreateDoctorDto extends CreateUserDto {
 
     @NotBlank
     private String specialtyName;
+
+
 }

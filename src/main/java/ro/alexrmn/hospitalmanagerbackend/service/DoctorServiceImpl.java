@@ -9,6 +9,7 @@ import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
 import ro.alexrmn.hospitalmanagerbackend.model.ERole;
 import ro.alexrmn.hospitalmanagerbackend.model.Role;
 import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.RoleRepository;
@@ -27,26 +28,26 @@ public class DoctorServiceImpl implements DoctorService{
     private final RoleRepository roleRepository;
 
     @Override
-    public Doctor saveDoctor(DoctorDto doctorDto) {
-        if(doctorRepository.existsByUsername(doctorDto.getUsername())) {
+    public Doctor saveDoctor(CreateDoctorDto createDoctorDto) {
+        if(doctorRepository.existsByUsername(createDoctorDto.getUsername())) {
             throw new EntityExistsException("Couldn't create doctor. A user with that username already exists");
         }
-        if(doctorRepository.existsByEmail(doctorDto.getEmail())) {
+        if(doctorRepository.existsByEmail(createDoctorDto.getEmail())) {
             throw new EntityExistsException("Couldn't create doctor. A user with that email already exists");
         }
 
-        Specialty specialty = specialtyRepository.findByName(doctorDto.getSpecialtyName())
+        Specialty specialty = specialtyRepository.findByName(createDoctorDto.getSpecialtyName())
                 .orElseThrow(() -> new EntityNotFoundException("Couldn't create doctor. Specialty not found."));
 
         Role role = roleRepository.findByName(ERole.ROLE_DOCTOR)
                 .orElseThrow(() -> new EntityNotFoundException("Error: Role is not found."));
 
         Doctor doctor = Doctor.builder()
-                .firstName(doctorDto.getFirstName())
-                .lastName(doctorDto.getLastName())
-                .username(doctorDto.getUsername())
-                .email(doctorDto.getEmail())
-                .password(encoder.encode(doctorDto.getPassword()))
+                .firstName(createDoctorDto.getFirstName())
+                .lastName(createDoctorDto.getLastName())
+                .username(createDoctorDto.getUsername())
+                .email(createDoctorDto.getEmail())
+                .password(encoder.encode(createDoctorDto.getPassword()))
                 .specialty(specialty)
                 .roles(Set.of(role))
                 .build();
@@ -55,7 +56,7 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public DoctorDto getDoctor(String username) {
+    public CreateDoctorDto getDoctor(String username) {
         Doctor doctor = doctorRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
 
@@ -63,20 +64,21 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public List<DoctorDto> getDoctors() {
+    public List<CreateDoctorDto> getDoctors() {
         List<Doctor> doctors = doctorRepository.findAll();
         return doctors.stream().map(Doctor::toDto).toList();
     }
 
     @Override
-    public Doctor updateDoctor(DoctorDto doctorDto) {
+    public Doctor updateDoctor(String username, DoctorDto doctorDto) {
         Specialty specialty = specialtyRepository.findByName(doctorDto.getSpecialtyName())
                 .orElseThrow(() -> new EntityNotFoundException("Couldn't update doctor. Specialty not found."));
-        Doctor doctor = doctorRepository.findByUsername(doctorDto.getUsername())
+        Doctor doctor = doctorRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
 
         doctor.setFirstName(doctorDto.getFirstName());
         doctor.setLastName(doctorDto.getLastName());
+        doctor.setEmail(doctorDto.getEmail());
         doctor.setSpecialty(specialty);
         return doctorRepository.save(doctor);
     }

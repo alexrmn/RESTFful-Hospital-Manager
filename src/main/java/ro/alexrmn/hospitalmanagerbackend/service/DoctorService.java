@@ -1,19 +1,20 @@
 package ro.alexrmn.hospitalmanagerbackend.service;
 
 import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
 
 import java.util.List;
 
 public interface DoctorService {
 
-    Doctor saveDoctor(DoctorDto doctorDto);
+    Doctor saveDoctor(CreateDoctorDto createDoctorDto);
 
-    DoctorDto getDoctor(String username);
+    CreateDoctorDto getDoctor(String username);
 
-    List<DoctorDto> getDoctors();
+    List<CreateDoctorDto> getDoctors();
 
-    Doctor updateDoctor(DoctorDto doctorDto);
+    Doctor updateDoctor(String username, DoctorDto doctorDto);
 
     void deleteDoctor(String doctorUsername);
 }

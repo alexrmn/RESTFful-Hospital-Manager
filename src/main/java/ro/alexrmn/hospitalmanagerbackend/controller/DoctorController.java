@@ -2,14 +2,13 @@ package ro.alexrmn.hospitalmanagerbackend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ro.alexrmn.hospitalmanagerbackend.Validators.ObjectValidator;
 import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
-import ro.alexrmn.hospitalmanagerbackend.payload.response.MessageResponse;
 import ro.alexrmn.hospitalmanagerbackend.service.DoctorService;
 
 import java.util.List;
@@ -21,25 +20,26 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorService doctorService;
-    private final ObjectValidator<DoctorDto> validator;
+    private final ObjectValidator<CreateDoctorDto> createDoctorValidator;
+    private final ObjectValidator<DoctorDto> editDoctorValidator;
 
     @GetMapping("/{doctorUsername}")
-    public ResponseEntity<DoctorDto> getDoctor(@PathVariable String doctorUsername){
-        DoctorDto doctorDto = doctorService.getDoctor(doctorUsername);
-        return ResponseEntity.ok().body(doctorDto);
+    public ResponseEntity<CreateDoctorDto> getDoctor(@PathVariable String doctorUsername){
+        CreateDoctorDto createDoctorDto = doctorService.getDoctor(doctorUsername);
+        return ResponseEntity.ok().body(createDoctorDto);
     }
 
     @GetMapping
-    public ResponseEntity<List<DoctorDto>> getDoctors() {
-        List<DoctorDto> doctorDtoList = doctorService.getDoctors();
-        return ResponseEntity.ok().body(doctorDtoList);
+    public ResponseEntity<List<CreateDoctorDto>> getDoctors() {
+        List<CreateDoctorDto> createDoctorDtoList = doctorService.getDoctors();
+        return ResponseEntity.ok().body(createDoctorDtoList);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Doctor> createDoctor(@RequestBody DoctorDto doctorDto) {
-        validator.validate(doctorDto);
-        Doctor doctor = doctorService.saveDoctor(doctorDto);
+    public ResponseEntity<Doctor> createDoctor(@RequestBody CreateDoctorDto createDoctorDto) {
+        createDoctorValidator.validate(createDoctorDto);
+        Doctor doctor = doctorService.saveDoctor(createDoctorDto);
         return ResponseEntity.accepted().body(doctor);
     }
 
@@ -47,8 +47,8 @@ public class DoctorController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Doctor> updateDoctor
             (@RequestBody DoctorDto doctorDto, @PathVariable String doctorUsername){
-        validator.validate(doctorDto);
-        Doctor doctor = doctorService.updateDoctor(doctorDto);
+        editDoctorValidator.validate(doctorDto);
+        Doctor doctor = doctorService.updateDoctor(doctorUsername, doctorDto);
         return ResponseEntity.accepted().body(doctor);
     }
 

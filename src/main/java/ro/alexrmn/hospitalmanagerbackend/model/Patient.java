@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreatePatientDto;
 
 import java.util.List;
 
@@ -21,4 +22,14 @@ public class Patient extends User{
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<Appointment> appointments;
+
+    public CreatePatientDto toDto(){
+        return CreatePatientDto.builder()
+                .firstName(this.getFirstName())
+                .lastName(this.getLastName())
+                .phoneNumber(this.phoneNumber)
+                .appointments(this.appointments)
+                .build();
+
+    }
 }
