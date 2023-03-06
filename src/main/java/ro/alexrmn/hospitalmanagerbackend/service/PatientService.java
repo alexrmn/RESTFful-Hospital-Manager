@@ -10,9 +10,9 @@ public interface PatientService {
 
     Patient savePatient(CreatePatientDto createPatientDto);
 
-    CreatePatientDto getPatient(String username);
+    PatientDto getPatient(String username);
 
-    List<CreatePatientDto> getPatients();
+    List<PatientDto> getPatients();
 
     Patient updatePatient(String username, PatientDto patientDto);
 

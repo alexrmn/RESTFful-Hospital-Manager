@@ -24,15 +24,15 @@ public class DoctorController {
     private final ObjectValidator<DoctorDto> editDoctorValidator;
 
     @GetMapping("/{doctorUsername}")
-    public ResponseEntity<CreateDoctorDto> getDoctor(@PathVariable String doctorUsername){
-        CreateDoctorDto createDoctorDto = doctorService.getDoctor(doctorUsername);
-        return ResponseEntity.ok().body(createDoctorDto);
+    public ResponseEntity<DoctorDto> getDoctor(@PathVariable String doctorUsername){
+        DoctorDto doctorDto = doctorService.getDoctor(doctorUsername);
+        return ResponseEntity.ok().body(doctorDto);
     }
 
     @GetMapping
-    public ResponseEntity<List<CreateDoctorDto>> getDoctors() {
-        List<CreateDoctorDto> createDoctorDtoList = doctorService.getDoctors();
-        return ResponseEntity.ok().body(createDoctorDtoList);
+    public ResponseEntity<List<DoctorDto>> getDoctors() {
+        List<DoctorDto> doctorDtoList = doctorService.getDoctors();
+        return ResponseEntity.ok().body(doctorDtoList);
     }
 
     @PostMapping

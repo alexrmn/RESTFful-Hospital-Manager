@@ -29,7 +29,7 @@ public class PatientController {
     private final ObjectValidator<PatientDto> editPatientValidator;
 
     @GetMapping("/{patientUsername}")
-    public ResponseEntity<CreatePatientDto> getPatient(@PathVariable String patientUsername){
+    public ResponseEntity<PatientDto> getPatient(@PathVariable String patientUsername){
         boolean isUserOwnerOfResource = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
@@ -40,15 +40,15 @@ public class PatientController {
             throw new NotAuthorizedToViewResourceException("Not authorized to view that resource");
         }
 
-        CreatePatientDto createPatientDto = patientService.getPatient(patientUsername);
-        return ResponseEntity.ok().body(createPatientDto);
+        PatientDto patientDto = patientService.getPatient(patientUsername);
+        return ResponseEntity.ok().body(patientDto);
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<CreatePatientDto>> getPatients() {
-        List<CreatePatientDto> createPatientDtoList = patientService.getPatients();
-        return ResponseEntity.ok().body(createPatientDtoList);
+    public ResponseEntity<List<PatientDto>> getPatients() {
+        List<PatientDto> patientDtoList = patientService.getPatients();
+        return ResponseEntity.ok().body(patientDtoList);
     }
 
     @PostMapping

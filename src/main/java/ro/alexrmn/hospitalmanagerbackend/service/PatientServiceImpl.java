@@ -50,14 +50,14 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public CreatePatientDto getPatient(String username) {
+    public PatientDto getPatient(String username) {
         Patient patient = patientRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
         return patient.toDto();
     }
 
     @Override
-    public List<CreatePatientDto> getPatients() {
+    public List<PatientDto> getPatients() {
         List<Patient> patients = patientRepository.findAll();
         return patients.stream().map(Patient::toDto).toList();
     }

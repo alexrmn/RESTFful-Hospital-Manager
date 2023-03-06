@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
 
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class Doctor extends User{
             cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<Appointment> appointments;
 
-    public CreateDoctorDto toDto(){
-        return CreateDoctorDto.builder()
+    public DoctorDto toDto(){
+        return DoctorDto.builder()
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
                 .specialtyName(specialty.getName())

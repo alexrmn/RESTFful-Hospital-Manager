@@ -56,7 +56,7 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public CreateDoctorDto getDoctor(String username) {
+    public DoctorDto getDoctor(String username) {
         Doctor doctor = doctorRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
 
@@ -64,7 +64,7 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public List<CreateDoctorDto> getDoctors() {
+    public List<DoctorDto> getDoctors() {
         List<Doctor> doctors = doctorRepository.findAll();
         return doctors.stream().map(Doctor::toDto).toList();
     }
