@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserDto {
+public class UserDto {
 
     @NotBlank(message = "First name must not be blank")
     private String firstName;

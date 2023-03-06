@@ -60,7 +60,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/test/**", "/doctors/**").permitAll()
+                .requestMatchers("/test/**", "/doctors/**").authenticated()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
