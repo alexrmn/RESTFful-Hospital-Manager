@@ -58,7 +58,7 @@ public class PatientController {
         return ResponseEntity.accepted().body(patient);
     }
 
-    @DeleteMapping("{patientId}")
+    @DeleteMapping("/{patientId}")
     public HttpStatus deletePatient(@PathVariable Long patientId){
 
         patientService.deletePatient(patientId);

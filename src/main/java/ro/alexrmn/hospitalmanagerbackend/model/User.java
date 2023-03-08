@@ -20,11 +20,7 @@ import java.util.stream.Collectors;
 @SuperBuilder
 @RequiredArgsConstructor
 @Table(name = "users")
-public class User implements UserDetails {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class User extends BaseEntity implements UserDetails {
 
     private String email;
 

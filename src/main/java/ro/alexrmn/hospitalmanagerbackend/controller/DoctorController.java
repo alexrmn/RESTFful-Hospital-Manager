@@ -59,10 +59,4 @@ public class DoctorController {
         return HttpStatus.ACCEPTED;
     }
 
-
-
-
-
-
-
 }
