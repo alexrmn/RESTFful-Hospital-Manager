@@ -28,19 +28,10 @@ public class PatientController {
     private final ObjectValidator<CreatePatientDto> createPatientValidator;
     private final ObjectValidator<PatientDto> editPatientValidator;
 
-    @GetMapping("/{patientUsername}")
-    public ResponseEntity<PatientDto> getPatient(@PathVariable String patientUsername){
-        boolean isUserOwnerOfResource = SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName()
-                .equals(patientUsername);
+    @GetMapping("/{patientId}")
+    public ResponseEntity<PatientDto> getPatient(@PathVariable Long patientId){
 
-        if(!isUserOwnerOfResource && !AuthUtils.isLoggedInUserAdmin()) {
-            throw new NotAuthorizedToViewResourceException("Not authorized to view that resource");
-        }
-
-        PatientDto patientDto = patientService.getPatient(patientUsername);
+        PatientDto patientDto = patientService.getPatient(patientId);
         return ResponseEntity.ok().body(patientDto);
     }
 
@@ -58,36 +49,19 @@ public class PatientController {
         return  ResponseEntity.ok().body(patient);
     }
 
-    @PutMapping("/{patientUsername}")
+    @PutMapping("/{patientId}")
     public ResponseEntity<Patient> updatePatient(@RequestBody PatientDto patientDto,
-                                                 @PathVariable String patientUsername){
+                                                 @PathVariable Long patientId){
 
-        boolean isUserOwnerOfResource = SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName()
-                .equals(patientUsername);
-
-        if(!isUserOwnerOfResource && !AuthUtils.isLoggedInUserAdmin()) {
-            throw new NotAuthorizedToViewResourceException("Not authorized to view that resource");
-        }
         editPatientValidator.validate(patientDto);
-        Patient patient = patientService.updatePatient(patientUsername, patientDto);
+        Patient patient = patientService.updatePatient(patientId, patientDto);
         return ResponseEntity.accepted().body(patient);
     }
 
-    @DeleteMapping("{patientUsername}")
-    public HttpStatus deletePatient(@PathVariable String patientUsername){
-        boolean isUserOwnerOfResource = SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName()
-                .equals(patientUsername);
+    @DeleteMapping("{patientId}")
+    public HttpStatus deletePatient(@PathVariable Long patientId){
 
-        if(!isUserOwnerOfResource && !AuthUtils.isLoggedInUserAdmin()) {
-            throw new NotAuthorizedToViewResourceException("Not authorized to view that resource");
-        }
-        patientService.deletePatient(patientUsername);
+        patientService.deletePatient(patientId);
         return HttpStatus.ACCEPTED;
     }
 

@@ -58,8 +58,8 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public DoctorDto getDoctor(String username) {
-        Doctor doctor = doctorRepository.findByUsername(username)
+    public DoctorDto getDoctor(Long id) {
+        Doctor doctor = doctorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
 
         return doctor.toDto();
@@ -72,10 +72,10 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public Doctor updateDoctor(String username, DoctorDto doctorDto) {
+    public Doctor updateDoctor(Long id, DoctorDto doctorDto) {
         Specialty specialty = specialtyRepository.findByName(doctorDto.getSpecialtyName())
                 .orElseThrow(() -> new EntityNotFoundException("Couldn't update doctor. Specialty not found."));
-        Doctor doctor = doctorRepository.findByUsername(username)
+        Doctor doctor = doctorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
 
         doctor.setFirstName(doctorDto.getFirstName());
@@ -86,8 +86,8 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public void deleteDoctor(String doctorUsername) {
-        Doctor doctor = doctorRepository.findByUsername(doctorUsername)
+    public void deleteDoctor(Long id) {
+        Doctor doctor = doctorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
         doctorRepository.delete(doctor);
     }

@@ -23,9 +23,9 @@ public class DoctorController {
     private final ObjectValidator<CreateDoctorDto> createDoctorValidator;
     private final ObjectValidator<DoctorDto> editDoctorValidator;
 
-    @GetMapping("/{doctorUsername}")
-    public ResponseEntity<DoctorDto> getDoctor(@PathVariable String doctorUsername){
-        DoctorDto doctorDto = doctorService.getDoctor(doctorUsername);
+    @GetMapping("/{doctorId}")
+    public ResponseEntity<DoctorDto> getDoctor(@PathVariable Long doctorId){
+        DoctorDto doctorDto = doctorService.getDoctor(doctorId);
         return ResponseEntity.ok().body(doctorDto);
     }
 
@@ -43,19 +43,19 @@ public class DoctorController {
         return ResponseEntity.accepted().body(doctor);
     }
 
-    @PutMapping("/{doctorUsername}")
+    @PutMapping("/{doctorId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Doctor> updateDoctor
-            (@RequestBody DoctorDto doctorDto, @PathVariable String doctorUsername){
+            (@RequestBody DoctorDto doctorDto, @PathVariable Long doctorId){
         editDoctorValidator.validate(doctorDto);
-        Doctor doctor = doctorService.updateDoctor(doctorUsername, doctorDto);
+        Doctor doctor = doctorService.updateDoctor(doctorId, doctorDto);
         return ResponseEntity.accepted().body(doctor);
     }
 
-    @DeleteMapping("/{doctorUsername}")
+    @DeleteMapping("/{doctorId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public HttpStatus deleteDoctor(@PathVariable String doctorUsername){
-        doctorService.deleteDoctor(doctorUsername);
+    public HttpStatus deleteDoctor(@PathVariable Long doctorId){
+        doctorService.deleteDoctor(doctorId);
         return HttpStatus.ACCEPTED;
     }
 

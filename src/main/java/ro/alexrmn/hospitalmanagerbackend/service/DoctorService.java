@@ -10,11 +10,11 @@ public interface DoctorService {
 
     Doctor saveDoctor(CreateDoctorDto createDoctorDto);
 
-    DoctorDto getDoctor(String username);
+    DoctorDto getDoctor(Long id);
 
     List<DoctorDto> getDoctors();
 
-    Doctor updateDoctor(String username, DoctorDto doctorDto);
+    Doctor updateDoctor(Long id, DoctorDto doctorDto);
 
-    void deleteDoctor(String doctorUsername);
+    void deleteDoctor(Long id);
 }

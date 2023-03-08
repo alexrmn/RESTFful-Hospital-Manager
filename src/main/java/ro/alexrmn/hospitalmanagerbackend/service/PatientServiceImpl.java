@@ -52,8 +52,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public PatientDto getPatient(String username) {
-        Patient patient = patientRepository.findByUsername(username)
+    public PatientDto getPatient(Long id) {
+        Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
         return patient.toDto();
     }
@@ -65,8 +65,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updatePatient(String username, PatientDto patientDto) {
-        Patient patient = patientRepository.findByUsername(username)
+    public Patient updatePatient(Long id, PatientDto patientDto) {
+        Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
 
         patient.setFirstName(patientDto.getFirstName());
@@ -76,8 +76,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void deletePatient(String patientUsername) {
-        Patient patient = patientRepository.findByUsername(patientUsername)
+    public void deletePatient(Long id) {
+        Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
         patientRepository.delete(patient);
     }

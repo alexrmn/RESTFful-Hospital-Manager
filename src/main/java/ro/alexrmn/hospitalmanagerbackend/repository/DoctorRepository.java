@@ -7,10 +7,8 @@ import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
 import java.util.Optional;
 
 @Repository
-public interface DoctorRepository extends JpaRepository<Doctor, String> {
-    Boolean existsByUsername(String username);
+public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
-    Boolean existsByEmail(String email);
 
     Optional<Doctor> findByUsername(String username);
 

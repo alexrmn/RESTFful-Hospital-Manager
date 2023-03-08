@@ -6,11 +6,7 @@ import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
 
 import java.util.Optional;
 
-public interface AdminRepository extends JpaRepository<Admin, String> {
-
-    Boolean existsByUsername(String username);
-
-    Boolean existsByEmail(String email);
+public interface AdminRepository extends JpaRepository<Admin, Long> {
 
     Optional<Admin> findByUsername(String username);
 }

@@ -23,10 +23,10 @@ public class AdminController {
     private final ObjectValidator<CreateAdminDto> createAdminValidator;
     private final ObjectValidator<AdminDto> editAdminValidator;
 
-    @GetMapping("{/adminUsername}")
+    @GetMapping("{/adminId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AdminDto> getAdmin(@PathVariable String adminUsername) {
-        AdminDto adminDto = adminService.getAdmin(adminUsername);
+    public ResponseEntity<AdminDto> getAdmin(@PathVariable Long adminId) {
+        AdminDto adminDto = adminService.getAdmin(adminId);
         return ResponseEntity.ok().body(adminDto);
     }
 
@@ -46,19 +46,19 @@ public class AdminController {
         return ResponseEntity.accepted().body(admin);
     }
 
-    @PutMapping("{/adminUsername}")
+    @PutMapping("{/adminId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Admin> updateAdmin(@RequestBody AdminDto adminDto,
-                                             @PathVariable String adminUsername) {
+                                             @PathVariable Long adminId) {
         editAdminValidator.validate(adminDto);
-        Admin admin = adminService.updateAdmin(adminUsername, adminDto);
+        Admin admin = adminService.updateAdmin(adminId, adminDto);
         return ResponseEntity.accepted().body(admin);
     }
 
-    @DeleteMapping("{/adminUsername}")
+    @DeleteMapping("{/adminId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public HttpStatus deleteAdmin(@PathVariable String adminUsername){
-        adminService.deleteAdmin(adminUsername);
+    public HttpStatus deleteAdmin(@PathVariable Long adminId){
+        adminService.deleteAdmin(adminId);
         return HttpStatus.ACCEPTED;
     }
 }

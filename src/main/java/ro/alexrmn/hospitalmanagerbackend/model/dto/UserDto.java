@@ -13,6 +13,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class UserDto {
 
+    private Long id;
+
     @NotBlank(message = "First name must not be blank")
     private String firstName;
 

@@ -35,15 +35,4 @@ public class Doctor extends User{
                 .build();
 
     }
-
-//    public DoctorDto toDetailedDto(){
-//        return DoctorDto.builder()
-//                .firstName(this.getFirstName())
-//                .lastName(this.getLastName())
-//                .email(this.getEmail())
-//                .specialtyName(specialty.getName())
-//                .username(this.getUsername())
-//                .build();
-//
-//    }
 }

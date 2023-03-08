@@ -10,12 +10,12 @@ public interface AdminService {
 
     Admin saveAdmin(CreateAdminDto createAdminDto);
 
-    AdminDto getAdmin(String username);
+    AdminDto getAdmin(Long id);
 
     List<AdminDto> getAdmins();
 
-    Admin updateAdmin(String username, AdminDto adminDto);
+    Admin updateAdmin(Long id, AdminDto adminDto);
 
-    void deleteAdmin(String username);
+    void deleteAdmin(Long id);
 
 }

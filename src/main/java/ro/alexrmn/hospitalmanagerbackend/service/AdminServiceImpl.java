@@ -48,8 +48,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public AdminDto getAdmin(String username) {
-        Admin admin = adminRepository.findByUsername(username)
+    public AdminDto getAdmin(Long id) {
+        Admin admin = adminRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Admin not found"));
 
         return admin.toDto();
@@ -62,8 +62,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin updateAdmin(String username, AdminDto adminDto) {
-        Admin admin = adminRepository.findByUsername(username)
+    public Admin updateAdmin(Long id, AdminDto adminDto) {
+        Admin admin = adminRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Admin not found"));
         admin.setFirstName(adminDto.getFirstName());
         admin.setLastName(adminDto.getLastName());
@@ -72,8 +72,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteAdmin(String username) {
-        Admin admin = adminRepository.findByUsername(username)
+    public void deleteAdmin(Long id) {
+        Admin admin = adminRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Admin not found"));
         adminRepository.delete(admin);
 
