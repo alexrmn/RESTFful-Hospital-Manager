@@ -18,5 +18,4 @@ public class PatientDto extends UserDto {
     @Pattern(regexp="0[0-9]{9}")
     private String phoneNumber;
 
-    private List<Appointment> appointments;
 }

@@ -28,6 +28,7 @@ public class Doctor extends User{
 
     public DoctorDto toDto(){
         return DoctorDto.builder()
+                .id(this.getId())
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
                 .email(this.getEmail())

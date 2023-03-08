@@ -5,63 +5,82 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import ro.alexrmn.hospitalmanagerbackend.model.Admin;
-import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
-import ro.alexrmn.hospitalmanagerbackend.model.Patient;
-import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
+import ro.alexrmn.hospitalmanagerbackend.model.*;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAdminDto;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAppointmentDto;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreatePatientDto;
 import ro.alexrmn.hospitalmanagerbackend.repository.AdminRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.PatientRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.SpecialtyRepository;
+import ro.alexrmn.hospitalmanagerbackend.service.AdminService;
+import ro.alexrmn.hospitalmanagerbackend.service.AppointmentService;
+import ro.alexrmn.hospitalmanagerbackend.service.DoctorService;
+import ro.alexrmn.hospitalmanagerbackend.service.PatientService;
+
+import java.time.LocalDate;
 
 //@Component
 @RequiredArgsConstructor
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    private final DoctorRepository doctorRepository;
-    private final PatientRepository patientRepository;
     private final SpecialtyRepository specialtyRepository;
-    private final AdminRepository adminRepository;
-    private final PasswordEncoder encoder;
+
+    private final DoctorService doctorService;
+    private final PatientService patientService;
+    private final AdminService adminService;
+    private final AppointmentService appointmentService;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-//        //creating specialties
+        //creating specialties
 //        Specialty cardiology = Specialty.builder()
 //                .name("Cardiology")
 //                .build();
 //        specialtyRepository.save(cardiology);
-//
-//        //creating doctors
-//        Doctor doctor1 = Doctor.builder()
-//                .email("doctor1@mail.com")
-//                .password(encoder.encode("doctor1"))
-//                .roles("ROLE_DOCTOR")
-//                .firstName("Gregory")
-//                .lastName("House")
-//                .specialty(cardiology)
-//                .build();
-//        doctorRepository.save(doctor1);
-//
-//        //creating patients
-//        Patient patient1 = Patient.builder()
-//                .email("patient1@mail.com")
-//                .password(encoder.encode("patient1"))
-//                .roles("ROLE_PATIENT")
-//                .firstName("Will")
-//                .lastName("Smith")
-//                .build();
-//
-//        patientRepository.save(patient1);
-//
-//        //creating admins
-//        Admin admin1 = Admin.builder()
-//                .email("admin1@mail.com")
-//                .password(encoder.encode("admin1"))
-//                .roles("ROLE_ADMIN")
-//                .firstName("Morgan")
-//                .lastName("Freeman")
-//                .build();
-//
-//        adminRepository.save(admin1);
+
+        //creating doctors
+        CreateDoctorDto createDoctorDto1 = CreateDoctorDto.builder()
+                .firstName("Greg")
+                .lastName("House")
+                .username("doctor1")
+                .email("doctor1@mail.com")
+                .password("doctor1")
+                .specialtyName("Cardiology")
+                .build();
+        Doctor doctor1 = doctorService.saveDoctor(createDoctorDto1);
+
+
+        //creating patients
+        CreatePatientDto createPatientDto1 = CreatePatientDto.builder()
+                .firstName("Will")
+                .lastName("Smith")
+                .username("patient1")
+                .email("patient1@mail.com")
+                .password("patient1")
+                .build();
+        Patient patient1 = patientService.savePatient(createPatientDto1);
+
+        //creating admins
+        CreateAdminDto createAdminDto1 = CreateAdminDto.builder()
+                .firstName("Admin")
+                .lastName("Admin")
+                .username("admin1")
+                .email("admin1@mail.com")
+                .password("admin1")
+                .build();
+        adminService.saveAdmin(createAdminDto1);
+
+        //creatingAppointments
+        CreateAppointmentDto createAppointmentDto1 = CreateAppointmentDto.builder()
+                .date(LocalDate.now())
+                .timeSlot(TimeSlot.TIME_SLOT_1)
+                .doctor(doctor1)
+                .patient(patient1)
+                .specialty(specialtyRepository.findByName("Cardiology").get())
+                .build();
+        appointmentService.saveAppointment(createAppointmentDto1);
+
     }
 }

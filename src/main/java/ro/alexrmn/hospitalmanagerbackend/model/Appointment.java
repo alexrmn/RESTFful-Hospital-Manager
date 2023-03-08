@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +22,10 @@ public class Appointment {
     @GeneratedValue
     private Long id;
 
-    private LocalDateTime date;
+    private LocalDate date;
+
+    @Enumerated(EnumType.STRING)
+    private TimeSlot timeSlot;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "patient_email", nullable = false)

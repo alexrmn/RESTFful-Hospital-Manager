@@ -18,6 +18,7 @@ public class Admin extends User {
 
     public AdminDto toDto() {
         return AdminDto.builder()
+                .id(this.getId())
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
                 .email(this.getEmail())

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreatePatientDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.PatientDto;
@@ -26,12 +27,17 @@ public class Patient extends User{
 
     public PatientDto toDto(){
         return PatientDto.builder()
+                .id(this.getId())
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
-                .phoneNumber(this.phoneNumber)
+                .phoneNumber(this.getPhoneNumber())
                 .email(this.getEmail())
-                .appointments(this.appointments)
                 .build();
 
+    }
+
+    @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName();
     }
 }
