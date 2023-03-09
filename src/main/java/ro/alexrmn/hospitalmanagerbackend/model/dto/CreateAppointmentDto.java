@@ -20,9 +20,6 @@ public class CreateAppointmentDto {
     private LocalDate date;
 
     @NotNull
-    private TimeSlot timeSlot;
-
-    @NotNull
     private Patient patient;
 
     @NotNull

@@ -1,5 +1,6 @@
 package ro.alexrmn.hospitalmanagerbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Doctor extends User{
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @JsonIgnore
     private List<Appointment> appointments;
 
     public DoctorDto toDto(){

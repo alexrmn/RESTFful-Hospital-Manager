@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.alexrmn.hospitalmanagerbackend.Validators.ObjectValidator;
 import ro.alexrmn.hospitalmanagerbackend.model.Appointment;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.AppointmentDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAppointmentDto;
 
 import ro.alexrmn.hospitalmanagerbackend.service.AppointmentService;
@@ -27,8 +28,8 @@ public class AppointmentController {
 
 
     @GetMapping("/{appointmentId}")
-    public ResponseEntity<Appointment> getAppointment(@PathVariable Long appointmentId){
-       Appointment appointment = appointmentService.getAppointment(appointmentId);
-        return ResponseEntity.ok().body(appointment);
+    public ResponseEntity<AppointmentDto> getAppointment(@PathVariable Long appointmentId){
+       AppointmentDto appointmentDto = appointmentService.getAppointment(appointmentId);
+        return ResponseEntity.ok().body(appointmentDto);
     }
 }

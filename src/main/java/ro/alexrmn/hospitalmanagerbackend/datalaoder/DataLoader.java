@@ -75,7 +75,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         //creatingAppointments
         CreateAppointmentDto createAppointmentDto1 = CreateAppointmentDto.builder()
                 .date(LocalDate.now())
-                .timeSlot(TimeSlot.TIME_SLOT_1)
                 .doctor(doctor1)
                 .patient(patient1)
                 .specialty(specialtyRepository.findByName("Cardiology").get())

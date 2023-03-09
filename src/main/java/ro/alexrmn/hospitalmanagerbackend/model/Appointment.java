@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.AppointmentDto;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -13,26 +15,20 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "appointments")
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Appointment {
+public class Appointment extends BaseEntity {
 
-    @Id
-    @GeneratedValue
-    private Long id;
 
     private LocalDate date;
 
-    @Enumerated(EnumType.STRING)
-    private TimeSlot timeSlot;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "patient_email", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_email", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
     @ManyToOne
@@ -98,6 +94,20 @@ public class Appointment {
         this.medications.remove(medication);
         medication.getAppointments().remove(this);
     }
+
+    public AppointmentDto toDto(){
+        return AppointmentDto.builder()
+                .id(this.getId())
+                .date(this.date)
+                .patient(this.patient.toDto())
+                .doctor(this.doctor.toDto())
+                .specialty(specialty)
+                .diagnoses(this.getDiagnoses())
+                .procedures(this.procedures)
+                .medications(this.medications)
+                .build();
+    }
+
 
 
 
