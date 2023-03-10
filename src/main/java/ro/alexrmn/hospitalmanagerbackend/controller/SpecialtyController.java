@@ -1,6 +1,7 @@
 package ro.alexrmn.hospitalmanagerbackend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,18 @@ public class SpecialtyController {
 
     private final SpecialtyService specialtyService;
     private final ObjectValidator<CreateSpecialtyDto> createSpecialtyValidator;
+    private final ObjectValidator<SpecialtyDto> editSpecialtyValidator;
 
     @GetMapping
     public ResponseEntity<List<SpecialtyDto>> getSpecialties() {
         List<SpecialtyDto> specialties = specialtyService.getSpecialties();
         return ResponseEntity.ok().body(specialties);
+    }
+
+    @GetMapping("/{specialtyId}")
+    public ResponseEntity<SpecialtyDto> getSpecialty(@PathVariable Long specialtyId) {
+        SpecialtyDto specialtyDto = specialtyService.getSpecialty(specialtyId);
+        return ResponseEntity.ok().body(specialtyDto);
     }
 
     @PostMapping
@@ -35,4 +43,20 @@ public class SpecialtyController {
         Specialty specialty = specialtyService.save(createSpecialtyDto);
         return ResponseEntity.ok().body(specialty);
     }
+
+    @DeleteMapping("/{specialtyId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public HttpStatus deleteSpecialty(@PathVariable Long specialtyId) {
+        specialtyService.delete(specialtyId);
+        return  HttpStatus.ACCEPTED;
+    }
+
+    @PutMapping("/{specialtyId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Specialty> updateSpecialty(@RequestBody SpecialtyDto specialtyDto, @PathVariable Long specialtyId) {
+        editSpecialtyValidator.validate(specialtyDto);
+        Specialty specialty = specialtyService.update(specialtyId, specialtyDto);
+        return ResponseEntity.ok().body(specialty);
+    }
+
 }

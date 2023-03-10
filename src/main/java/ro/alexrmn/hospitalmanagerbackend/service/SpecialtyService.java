@@ -11,4 +11,10 @@ public interface SpecialtyService {
     List<SpecialtyDto> getSpecialties();
 
     Specialty save(CreateSpecialtyDto createSpecialtyDto);
+
+    void delete(Long specialtyId);
+
+    SpecialtyDto getSpecialty(Long specialtyId);
+
+    Specialty update(Long id, SpecialtyDto specialtyDto);
 }

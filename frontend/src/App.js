@@ -8,6 +8,7 @@ import AdminDashboard from './Layouts/AdminDashboard';
 import DoctorDashboard from './Layouts/DoctorDashboard';
 import PatientDashboard from './Layouts/PatientDashboard';
 import SpecialtiesList from './Specialties/SpecialtiesList';
+import EditSpecialty from './Specialties/EditSpecialty';
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
             <>
               <Route path="/" element={<AdminDashboard/>} />
               <Route path="/specialties" element={<SpecialtiesList {...credentials} />} />
+              <Route path="/specialties/:id/edit" element={<EditSpecialty {...credentials} />} />
               {/* <Route path="/doctors" element={<DoctorsList />} /> */}
             </>
           )}

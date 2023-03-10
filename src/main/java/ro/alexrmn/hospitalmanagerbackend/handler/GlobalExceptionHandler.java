@@ -12,17 +12,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ObjectNotValidException.class)
     public ResponseEntity<?> handleException(ObjectNotValidException exception){
+        System.out.println(exception.getMessage());
         return ResponseEntity.badRequest()
                 .body(exception.getErrorMessages());
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleException(EntityNotFoundException exception){
+        System.out.println(exception.getMessage());
         return ResponseEntity.badRequest().body(exception.getMessage());
     }
 
     @ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<?> handleException(EntityExistsException exception){
+        System.out.println(exception.getMessage());
         return ResponseEntity.badRequest().body(exception.getMessage());
     }
 }
