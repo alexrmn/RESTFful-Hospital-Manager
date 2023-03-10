@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateSpecialtyDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.SpecialtyDto;
+import ro.alexrmn.hospitalmanagerbackend.repository.AppointmentRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.SpecialtyRepository;
 
@@ -18,6 +19,8 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 
     private final SpecialtyRepository specialtyRepository;
     private final DoctorRepository doctorRepository;
+    private final AppointmentRepository appointmentRepository;
+
     @Override
     public List<SpecialtyDto> getSpecialties() {
         List<Specialty> specialties = specialtyRepository.findAll();
@@ -39,20 +42,22 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     public void delete(Long specialtyId) {
         Specialty specialty = specialtyRepository.findById(specialtyId)
                 .orElseThrow(() -> new EntityNotFoundException("Specialty not found"));
-        doctorRepository.findAll()
-                                .forEach((doctor -> {
-                                    if (doctor.getSpecialty() == specialty) {
-                                        doctor.setSpecialty(null);
-                                    }
-                                }));
+        doctorRepository.findBySpecialty(specialty)
+                .forEach((doctor -> {
+                    doctor.setSpecialty(null);
+                }));
+        appointmentRepository.findBySpecialty(specialty)
+                .forEach((appointment -> {
+                    appointment.setSpecialty(null);
+                }));
         specialtyRepository.delete(specialty);
     }
 
     @Override
     public SpecialtyDto getSpecialty(Long specialtyId) {
-        Specialty specialty =  specialtyRepository.findById(specialtyId)
+        Specialty specialty = specialtyRepository.findById(specialtyId)
                 .orElseThrow(() -> new EntityNotFoundException("Specialty not found"));
-        return  specialty.toDto();
+        return specialty.toDto();
     }
 
     @Override
