@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/patients").permitAll()
                 .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/test/**", "/doctors/**", "/patients/**", "/appointments/**", "/specialties").authenticated()
+                .requestMatchers("/test/**", "/doctors/**", "/patients/**", "/appointments/**", "/specialties/**").authenticated()
                 .requestMatchers("/admins/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 

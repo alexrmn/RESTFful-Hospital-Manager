@@ -9,6 +9,9 @@ import DoctorDashboard from './Layouts/DoctorDashboard';
 import PatientDashboard from './Layouts/PatientDashboard';
 import SpecialtiesList from './Specialties/SpecialtiesList';
 import EditSpecialty from './Specialties/EditSpecialty';
+import DoctorList from './Layouts/Doctors/DoctorList';
+import CreateNewDoctorForm from './Layouts/Doctors/CreateNewDoctorForm';
+
 
 
 function App() {
@@ -56,7 +59,10 @@ function App() {
               <Route path="/" element={<AdminDashboard/>} />
               <Route path="/specialties" element={<SpecialtiesList {...credentials} />} />
               <Route path="/specialties/:id/edit" element={<EditSpecialty {...credentials} />} />
-              {/* <Route path="/doctors" element={<DoctorsList />} /> */}
+              <Route path="/doctors" element={<DoctorList {...credentials} />} />
+              <Route path="/doctors/new" element={<CreateNewDoctorForm {...credentials} />} />
+              
+
             </>
           )}
           {isDoctor() && <Route path="/" element={<DoctorDashboard/>} />}

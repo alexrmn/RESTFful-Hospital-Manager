@@ -28,12 +28,13 @@ public class SpecialtyServiceImpl implements SpecialtyService {
     }
 
     @Override
-    public Specialty save(CreateSpecialtyDto createSpecialtyDto) {
-        if (specialtyRepository.existsByName(createSpecialtyDto.getName())) {
+    public Specialty save(SpecialtyDto specialtyDto) {
+        if (specialtyRepository.existsByName(specialtyDto.getName())) {
             throw new EntityExistsException("Specialty already exists");
         }
         Specialty specialty = Specialty.builder()
-                .name(createSpecialtyDto.getName())
+                .name(specialtyDto.getName())
+                .description(specialtyDto.getDescription())
                 .build();
         return specialtyRepository.save(specialty);
     }
@@ -65,6 +66,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
         Specialty specialty = specialtyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Specialty not found"));
         specialty.setName(specialtyDto.getName());
+        specialty.setDescription(specialtyDto.getDescription());
         return specialtyRepository.save(specialty);
     }
 }

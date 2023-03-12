@@ -7,6 +7,7 @@ export default function SpecialtiesList(credentials) {
     const [specialties, setSpecialties] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [newSpecialtyName, setNewSpecialtyName] = useState('');
+    const [newSpecialtyDescription, setNewSpecialtyDescription] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,23 +33,24 @@ export default function SpecialtiesList(credentials) {
         try {
             const response = await axios.post(
                 'http://localhost:8080/specialties',
-                { name: newSpecialtyName },
+                { name: newSpecialtyName, description: newSpecialtyDescription },
                 { headers: { Authorization: `Bearer ${credentials.token}` } }
             );
 
             setSpecialties([...specialties, response.data]);
             setShowForm(false);
             setNewSpecialtyName('');
+            setNewSpecialtyDescription('');
         } catch (error) {
             console.error(error);
         }
     };
 
-    
+
 
     const handleEditSpecialty = (id) => {
         navigate(`/specialties/${id}/edit`);
-      };
+    };
 
     const handleDeleteSpecialty = async (id) => {
         try {
@@ -79,6 +81,13 @@ export default function SpecialtiesList(credentials) {
                             onChange={(event) => setNewSpecialtyName(event.target.value)}
                         />
                     </div>
+                    <label htmlFor="description">Description:</label>
+                    <textarea
+                        className="form-control"
+                        id="description"
+                        value={newSpecialtyDescription}
+                        onChange={(event) => setNewSpecialtyDescription(event.target.value)}
+                    />
                     <button type="submit" className='btn btn-outline-secondary mt-5'>Add</button>
                 </form>
             )}
@@ -86,8 +95,9 @@ export default function SpecialtiesList(credentials) {
                 <thead>
                     <tr>
                         <th scope="col-2">Id</th>
-                        <th scope="col-8">Name</th>
-                        <th scope="col-2"></th>
+                        <th scope="col-6">Name</th>
+                        <th scope="col-3">Description</th>
+                        <th scope="col-1"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,6 +105,7 @@ export default function SpecialtiesList(credentials) {
                         <tr key={specialty.id}>
                             <td>{specialty.id}</td>
                             <td>{specialty.name}</td>
+                            <td>{specialty.description}</td>
                             <td>
                                 <button
                                     className="btn btn-primary mx-1"

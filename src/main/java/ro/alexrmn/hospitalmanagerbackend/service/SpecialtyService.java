@@ -10,7 +10,7 @@ import java.util.List;
 public interface SpecialtyService {
     List<SpecialtyDto> getSpecialties();
 
-    Specialty save(CreateSpecialtyDto createSpecialtyDto);
+    Specialty save(SpecialtyDto specialtyDto);
 
     void delete(Long specialtyId);
 

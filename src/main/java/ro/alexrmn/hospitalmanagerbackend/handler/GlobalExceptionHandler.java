@@ -7,14 +7,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ro.alexrmn.hospitalmanagerbackend.exception.ObjectNotValidException;
 
+import java.util.Set;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ObjectNotValidException.class)
     public ResponseEntity<?> handleException(ObjectNotValidException exception){
-        System.out.println(exception.getMessage());
+        System.out.println(exception.getErrorMessages());
+        Set<String> errorMessages = exception.getErrorMessages();
         return ResponseEntity.badRequest()
-                .body(exception.getErrorMessages());
+                .body(errorMessages);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

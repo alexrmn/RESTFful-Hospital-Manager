@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class CreateDoctorDto extends CreateUserDto {
 
-    @NotBlank
+    @NotBlank(message = "Specialty cannot be blank")
     private String specialtyName;
 
 

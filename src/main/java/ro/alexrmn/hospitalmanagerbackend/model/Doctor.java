@@ -18,7 +18,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Doctor extends User{
+public class Doctor extends User {
 
     @ManyToOne
     private Specialty specialty;
@@ -28,13 +28,13 @@ public class Doctor extends User{
     @JsonIgnore
     private List<Appointment> appointments;
 
-    public DoctorDto toDto(){
+    public DoctorDto toDto() {
         return DoctorDto.builder()
                 .id(this.getId())
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
                 .email(this.getEmail())
-                .specialtyName(specialty.getName())
+                .specialty(this.specialty)
                 .build();
 
     }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
 
 @Data
 @SuperBuilder
@@ -12,6 +13,5 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class DoctorDto extends UserDto {
 
-    @NotBlank
-    private String specialtyName;
+    private Specialty specialty;
 }

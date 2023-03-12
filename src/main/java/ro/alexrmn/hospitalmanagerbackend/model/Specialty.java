@@ -2,6 +2,7 @@ package ro.alexrmn.hospitalmanagerbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,9 @@ import java.util.List;
 @AllArgsConstructor
 public class Specialty extends NamedResource {
 
+    @Column(length = 2000)
+    private String description;
+
     @OneToMany(mappedBy = "specialty")
     @JsonIgnore
     private List<Doctor> doctors;
@@ -28,6 +32,7 @@ public class Specialty extends NamedResource {
         return SpecialtyDto.builder()
                 .id(this.getId())
                 .name(this.getName())
+                .description(description)
                 .build();
     }
 

@@ -21,8 +21,7 @@ import java.util.List;
 public class SpecialtyController {
 
     private final SpecialtyService specialtyService;
-    private final ObjectValidator<CreateSpecialtyDto> createSpecialtyValidator;
-    private final ObjectValidator<SpecialtyDto> editSpecialtyValidator;
+    private final ObjectValidator<SpecialtyDto> specialtyValidator;
 
     @GetMapping
     public ResponseEntity<List<SpecialtyDto>> getSpecialties() {
@@ -38,9 +37,9 @@ public class SpecialtyController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Specialty> createSpecialty(@RequestBody CreateSpecialtyDto createSpecialtyDto) {
-        createSpecialtyValidator.validate(createSpecialtyDto);
-        Specialty specialty = specialtyService.save(createSpecialtyDto);
+    public ResponseEntity<Specialty> createSpecialty(@RequestBody SpecialtyDto specialtyDto) {
+        specialtyValidator.validate(specialtyDto);
+        Specialty specialty = specialtyService.save(specialtyDto);
         return ResponseEntity.ok().body(specialty);
     }
 
@@ -54,7 +53,7 @@ public class SpecialtyController {
     @PutMapping("/{specialtyId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Specialty> updateSpecialty(@RequestBody SpecialtyDto specialtyDto, @PathVariable Long specialtyId) {
-        editSpecialtyValidator.validate(specialtyDto);
+        specialtyValidator.validate(specialtyDto);
         Specialty specialty = specialtyService.update(specialtyId, specialtyDto);
         return ResponseEntity.ok().body(specialty);
     }
