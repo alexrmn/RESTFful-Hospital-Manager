@@ -5,7 +5,7 @@ import ro.alexrmn.hospitalmanagerbackend.model.dto.AppointmentDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAppointmentDto;
 
 public interface AppointmentService {
-    Appointment saveAppointment(CreateAppointmentDto createAppointmentDto);
 
-    AppointmentDto getAppointment(Long appointmentId);
+     Appointment createAppointment();
+
 }

@@ -9,6 +9,7 @@ import ro.alexrmn.hospitalmanagerbackend.model.dto.AppointmentDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAppointmentDto;
 
 import ro.alexrmn.hospitalmanagerbackend.service.AppointmentService;
+import ro.alexrmn.hospitalmanagerbackend.service.AppointmentServiceImpl;
 
 @RestController
 @RequestMapping("/appointments")
@@ -16,20 +17,15 @@ import ro.alexrmn.hospitalmanagerbackend.service.AppointmentService;
 @RequiredArgsConstructor
 public class AppointmentController {
 
-    private final AppointmentService appointmentService;
+    private final AppointmentServiceImpl appointmentService;
     private final ObjectValidator<CreateAppointmentDto> createAppointmentValidator;
 
     @PostMapping
-    public ResponseEntity<?> createAppointment(@RequestBody CreateAppointmentDto createAppointmentDto) {
-        createAppointmentValidator.validate(createAppointmentDto);
-        Appointment appointment = appointmentService.saveAppointment(createAppointmentDto);
+    public ResponseEntity<?> createAppointment() {
+        Appointment appointment = appointmentService.createAppointment();
         return ResponseEntity.ok().body(appointment);
     }
 
 
-    @GetMapping("/{appointmentId}")
-    public ResponseEntity<AppointmentDto> getAppointment(@PathVariable Long appointmentId){
-       AppointmentDto appointmentDto = appointmentService.getAppointment(appointmentId);
-        return ResponseEntity.ok().body(appointmentDto);
-    }
+
 }

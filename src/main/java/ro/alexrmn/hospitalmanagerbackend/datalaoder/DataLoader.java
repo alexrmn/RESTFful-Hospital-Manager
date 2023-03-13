@@ -73,13 +73,13 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         adminService.saveAdmin(createAdminDto1);
 
         //creatingAppointments
-        CreateAppointmentDto createAppointmentDto1 = CreateAppointmentDto.builder()
-                .date(LocalDate.now())
-                .doctor(doctor1)
-                .patient(patient1)
-                .specialty(specialtyRepository.findByName("Cardiology").get())
-                .build();
-        appointmentService.saveAppointment(createAppointmentDto1);
+//        CreateAppointmentDto createAppointmentDto1 = CreateAppointmentDto.builder()
+//                .date(LocalDate.now())
+//                .doctor(doctor1)
+//                .patient(patient1)
+//                .specialty(specialtyRepository.findByName("Cardiology").get())
+//                .build();
+//        appointmentService.saveAppointment(createAppointmentDto1);
 
     }
 }

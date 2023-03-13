@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 

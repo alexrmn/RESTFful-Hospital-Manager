@@ -1,40 +1,45 @@
 package ro.alexrmn.hospitalmanagerbackend.service;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ro.alexrmn.hospitalmanagerbackend.model.Appointment;
 import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
-import ro.alexrmn.hospitalmanagerbackend.model.dto.AppointmentDto;
-import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAppointmentDto;
+import ro.alexrmn.hospitalmanagerbackend.model.Patient;
+import ro.alexrmn.hospitalmanagerbackend.model.ETimeSlot;
 import ro.alexrmn.hospitalmanagerbackend.repository.AppointmentRepository;
+import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;
+import ro.alexrmn.hospitalmanagerbackend.repository.PatientRepository;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
 
-
-    public Appointment saveAppointment(CreateAppointmentDto createAppointmentDto) {
-
+    public Appointment createAppointment() {
+        Doctor doctor = doctorRepository.findById(52L)
+                .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
+        Patient patient = patientRepository.findById(2L)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+        ETimeSlot ETimeSlot = ETimeSlot.SLOT_9_10;
+        LocalDate date = LocalDate.now();
         Appointment appointment = Appointment.builder()
-                .date(createAppointmentDto.getDate())
-                .doctor(createAppointmentDto.getDoctor())
-                .specialty(createAppointmentDto.getSpecialty())
-                .patient(createAppointmentDto.getPatient())
+                .date(date)
+                .ETimeSlot(ETimeSlot)
+                .doctor(doctor)
+                .patient(patient)
                 .build();
-        return appointmentRepository.save(appointment);
+        if (appointmentRepository.existsByDateAndTimeSlotAndDoctor(date, ETimeSlot, doctor)) {
+            throw new EntityExistsException("Timeslot is not free.");
+        } else {
+           return appointmentRepository.save(appointment);
+        }
 
-    }
-
-    @Override
-    public AppointmentDto getAppointment(Long appointmentId) {
-        Appointment appointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
-        return appointment.toDto();
     }
 }

@@ -2,7 +2,6 @@ package ro.alexrmn.hospitalmanagerbackend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -21,7 +20,13 @@ import java.util.Set;
 public class Appointment extends BaseEntity {
 
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "time_slot")
+    private ETimeSlot ETimeSlot;
+
+    @Column(name = "date")
     private LocalDate date;
+
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "patient_id", nullable = false)

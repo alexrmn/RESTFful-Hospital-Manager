@@ -32,7 +32,6 @@ public class User extends BaseEntity implements UserDetails {
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_username"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-
     private Set<Role> roles = new HashSet<>();
 
     private String firstName;

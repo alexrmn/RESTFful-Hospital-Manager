@@ -17,6 +17,9 @@ import java.time.LocalDate;
 public class CreateAppointmentDto {
 
     @NotNull
+
+
+    @NotNull
     private LocalDate date;
 
     @NotNull
