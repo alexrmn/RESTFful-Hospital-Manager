@@ -1,6 +1,6 @@
 import './App.css';
 import SignInForm from './Layouts/Auth/SignInForm';
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './Layouts/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import RegistrationForm from './Layouts/Auth/RegistrationForm';
@@ -12,6 +12,7 @@ import EditSpecialty from './Specialties/EditSpecialty';
 import DoctorList from './Layouts/Doctors/DoctorList';
 import CreateNewDoctorForm from './Layouts/Doctors/CreateNewDoctorForm';
 import EditDoctorForm from './Layouts/Doctors/EditDoctorForm';
+import ViewSpecialty from './Specialties/ViewSpecialty';
 
 
 
@@ -52,22 +53,26 @@ function App() {
   return (
     <>
       <div className="App">
-        <Navbar credentials={credentials} setCredentials={setCredentials}/>
+        <Navbar credentials={credentials} setCredentials={setCredentials} />
         <Routes>
           {/* Render different components based on user role */}
           {isAdmin() && (
             <>
-              <Route path="/" element={<AdminDashboard/>} />
+              <Route path="/" element={<AdminDashboard />} />
               <Route path="/specialties" element={<SpecialtiesList {...credentials} />} />
               <Route path="/specialties/:id/edit" element={<EditSpecialty {...credentials} />} />
               <Route path="/doctors" element={<DoctorList {...credentials} />} />
               <Route path="/doctors/new" element={<CreateNewDoctorForm {...credentials} />} />
               <Route path="/doctors/:id/edit" element={<EditDoctorForm {...credentials} />} />
-
             </>
           )}
-          {isDoctor() && <Route path="/" element={<DoctorDashboard/>} />}
-          {isPatient() && <Route path="/" element={<PatientDashboard />} />}
+          {isDoctor() && <Route path="/" element={<DoctorDashboard />} />}
+          {isPatient() && (
+            <>
+              <Route path="/" element={<PatientDashboard {...credentials} />} />
+              <Route path="/specialties/:id" element={<ViewSpecialty {...credentials} />} />
+            </>
+          )}
           {!credentials && <Route path="/" element={<SignInForm setCredentials={setCredentials} />} />}
           <Route path="/register" element={<RegistrationForm />} />
         </Routes>

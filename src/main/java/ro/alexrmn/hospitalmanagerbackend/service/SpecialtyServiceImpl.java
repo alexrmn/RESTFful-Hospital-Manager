@@ -35,6 +35,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
         Specialty specialty = Specialty.builder()
                 .name(specialtyDto.getName())
                 .description(specialtyDto.getDescription())
+                .imageLink(specialtyDto.getImageLink())
                 .build();
         return specialtyRepository.save(specialty);
     }
@@ -67,6 +68,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
                 .orElseThrow(() -> new EntityNotFoundException("Specialty not found"));
         specialty.setName(specialtyDto.getName());
         specialty.setDescription(specialtyDto.getDescription());
+        specialty.setImageLink(specialtyDto.getImageLink());
         return specialtyRepository.save(specialty);
     }
 }

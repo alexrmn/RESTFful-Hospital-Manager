@@ -20,9 +20,8 @@ import java.util.Set;
 public class Appointment extends BaseEntity {
 
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "time_slot")
-    private ETimeSlot ETimeSlot;
+    @ManyToOne
+    private TimeSlot timeSlot;
 
     @Column(name = "date")
     private LocalDate date;

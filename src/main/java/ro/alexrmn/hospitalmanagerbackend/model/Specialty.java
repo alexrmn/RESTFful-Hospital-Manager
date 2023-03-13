@@ -24,6 +24,8 @@ public class Specialty extends NamedResource {
     @Column(length = 2000)
     private String description;
 
+    private String imageLink;
+
     @OneToMany(mappedBy = "specialty")
     @JsonIgnore
     private List<Doctor> doctors;
@@ -33,6 +35,7 @@ public class Specialty extends NamedResource {
                 .id(this.getId())
                 .name(this.getName())
                 .description(description)
+                .imageLink(imageLink)
                 .build();
     }
 

@@ -10,10 +10,7 @@ import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAdminDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAppointmentDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreatePatientDto;
-import ro.alexrmn.hospitalmanagerbackend.repository.AdminRepository;
-import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;
-import ro.alexrmn.hospitalmanagerbackend.repository.PatientRepository;
-import ro.alexrmn.hospitalmanagerbackend.repository.SpecialtyRepository;
+import ro.alexrmn.hospitalmanagerbackend.repository.*;
 import ro.alexrmn.hospitalmanagerbackend.service.AdminService;
 import ro.alexrmn.hospitalmanagerbackend.service.AppointmentService;
 import ro.alexrmn.hospitalmanagerbackend.service.DoctorService;
@@ -31,14 +28,33 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private final PatientService patientService;
     private final AdminService adminService;
     private final AppointmentService appointmentService;
+    private final RoleRepository roleRepository;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        //creating specialties
-//        Specialty cardiology = Specialty.builder()
-//                .name("Cardiology")
+        //creating roles
+//        Role patient = Role.builder()
+//                .id(1L)
+//                .name(ERole.ROLE_PATIENT)
 //                .build();
-//        specialtyRepository.save(cardiology);
+//        Role doctor = Role.builder()
+//                .id(1L)
+//                .name(ERole.ROLE_DOCTOR)
+//                .build();
+//        Role admin = Role.builder()
+//                .id(1L)
+//                .name(ERole.ROLE_ADMIN)
+//                .build();
+//        roleRepository.save(patient);
+//        roleRepository.save(doctor);
+//        roleRepository.save(admin);
+
+
+        //creating specialties
+        Specialty cardiology = Specialty.builder()
+                .name("Cardiology")
+                .build();
+        specialtyRepository.save(cardiology);
 
         //creating doctors
         CreateDoctorDto createDoctorDto1 = CreateDoctorDto.builder()

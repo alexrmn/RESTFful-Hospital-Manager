@@ -21,4 +21,6 @@ public class SpecialtyDto {
 
     @NotBlank(message ="Description must not be blank")
     private String description;
+
+    private String imageLink;
 }

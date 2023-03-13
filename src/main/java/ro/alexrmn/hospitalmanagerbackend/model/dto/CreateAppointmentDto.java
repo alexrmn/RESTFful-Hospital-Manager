@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CreateAppointmentDto {
 
-    @NotNull
 
 
     @NotNull

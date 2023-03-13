@@ -14,4 +14,9 @@ public class CreateSpecialtyDto {
 
     @NotBlank
     private String name;
+
+    @NotBlank
+    private String description;
+
+    private String imageLink;
 }

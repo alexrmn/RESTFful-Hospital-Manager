@@ -1,9 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Navbar({ credentials, setCredentials }) {
+  
+  const navigate = useNavigate()
+  
   const handleLogout = () => {
     setCredentials(null);
+    navigate("/")
   };
 
   return (

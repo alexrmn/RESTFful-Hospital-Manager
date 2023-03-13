@@ -7,18 +7,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
-@Data
 @Entity
-@Table(name = "TimeSlots")
-@SuperBuilder
-@NoArgsConstructor
+@Table(name = "timeslots")
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class TimeSlot extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
-    private TimeSlot name;
-
-
+    private ETimeSlot value;
 }

@@ -8,6 +8,7 @@ export default function SpecialtiesList(credentials) {
     const [showForm, setShowForm] = useState(false);
     const [newSpecialtyName, setNewSpecialtyName] = useState('');
     const [newSpecialtyDescription, setNewSpecialtyDescription] = useState('');
+    const [newSpecialtyImageLink, setNewSpecialtyImageLink] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,7 +34,7 @@ export default function SpecialtiesList(credentials) {
         try {
             const response = await axios.post(
                 'http://localhost:8080/specialties',
-                { name: newSpecialtyName, description: newSpecialtyDescription },
+                { name: newSpecialtyName, description: newSpecialtyDescription, imageLink: newSpecialtyImageLink },
                 { headers: { Authorization: `Bearer ${credentials.token}` } }
             );
 
@@ -88,15 +89,23 @@ export default function SpecialtiesList(credentials) {
                         value={newSpecialtyDescription}
                         onChange={(event) => setNewSpecialtyDescription(event.target.value)}
                     />
+                    <label htmlFor="imageLink">Image Link:</label>
+                    <textarea
+                        className="form-control"
+                        id="imageLink"
+                        value={newSpecialtyImageLink}
+                        onChange={(event) => setNewSpecialtyImageLink(event.target.value)}
+                    />
                     <button type="submit" className='btn btn-outline-secondary mt-5'>Add</button>
                 </form>
             )}
             <table className="table mt-5">
                 <thead>
                     <tr>
-                        <th scope="col-2">Id</th>
-                        <th scope="col-6">Name</th>
-                        <th scope="col-3">Description</th>
+                        <th scope="col-1">Id</th>
+                        <th scope="col-2">Name</th>
+                        <th scope="col-5">Description</th>
+                        <th scope="col-3">Image Link</th>
                         <th scope="col-1"></th>
                     </tr>
                 </thead>
@@ -106,6 +115,7 @@ export default function SpecialtiesList(credentials) {
                             <td>{specialty.id}</td>
                             <td>{specialty.name}</td>
                             <td>{specialty.description}</td>
+                            <td>{specialty.imageLink}</td>
                             <td>
                                 <button
                                     className="btn btn-primary mx-1"
