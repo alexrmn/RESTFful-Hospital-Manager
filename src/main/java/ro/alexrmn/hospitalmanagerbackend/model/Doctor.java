@@ -29,12 +29,18 @@ public class Doctor extends User {
     private List<Appointment> appointments;
 
     public DoctorDto toDto() {
+        String specialtyName;
+        if (this.specialty == null) {
+            specialtyName = "";
+        } else {
+            specialtyName = specialty.getName();
+        }
         return DoctorDto.builder()
                 .id(this.getId())
                 .firstName(this.getFirstName())
                 .lastName(this.getLastName())
                 .email(this.getEmail())
-                .specialty(this.specialty)
+                .specialtyName(specialtyName)
                 .build();
 
     }

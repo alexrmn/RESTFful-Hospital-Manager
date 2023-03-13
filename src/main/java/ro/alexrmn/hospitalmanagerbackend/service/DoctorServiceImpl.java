@@ -73,7 +73,7 @@ public class DoctorServiceImpl implements DoctorService{
 
     @Override
     public Doctor updateDoctor(Long id, DoctorDto doctorDto) {
-        Specialty specialty = specialtyRepository.findByName(doctorDto.getSpecialty().getName())
+        Specialty specialty = specialtyRepository.findByName(doctorDto.getSpecialtyName())
                 .orElseThrow(() -> new EntityNotFoundException("Couldn't update doctor. Specialty not found."));
         Doctor doctor = doctorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
