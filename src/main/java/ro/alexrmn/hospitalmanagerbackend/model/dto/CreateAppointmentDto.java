@@ -18,19 +18,19 @@ public class CreateAppointmentDto {
 
 
 
-    @NotNull
+    @NotNull(message = "Date must not be null")
     private LocalDate date;
 
-    @NotNull
-    TimeSlot timeSlot;
+    @NotNull(message = "timeslotId must not be null")
+    private Long timeslotId;
 
-    @NotNull
+    @NotNull(message = "patientId must not be null")
     private Long patientId;
 
-    @NotNull
+    @NotNull(message = "doctorId must not be null")
     private Long doctorId;
 
-    @NotNull
+    @NotNull(message = "specialtyId must not be null")
     private Long specialtyId;
 
 }

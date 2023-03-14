@@ -21,12 +21,10 @@ public class AppointmentController {
     private final ObjectValidator<CreateAppointmentDto> createAppointmentValidator;
 
     @PostMapping
-    public ResponseEntity<?> createAppointment(CreateAppointmentDto createAppointmentDto) {
+    public ResponseEntity<?> createAppointment(@RequestBody CreateAppointmentDto createAppointmentDto) {
         createAppointmentValidator.validate(createAppointmentDto);
         Appointment appointment = appointmentService.createAppointment(createAppointmentDto);
         return ResponseEntity.ok().body(appointment);
     }
-
-
 
 }
