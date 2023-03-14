@@ -22,12 +22,15 @@ public class CreateAppointmentDto {
     private LocalDate date;
 
     @NotNull
-    private Patient patient;
+    TimeSlot timeSlot;
 
     @NotNull
-    private Doctor doctor;
+    private Long patientId;
 
     @NotNull
-    private Specialty specialty;
+    private Long doctorId;
+
+    @NotNull
+    private Long specialtyId;
 
 }

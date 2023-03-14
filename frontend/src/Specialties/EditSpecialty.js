@@ -80,10 +80,11 @@ export default function EditSpecialty(credentials) {
           <label htmlFor="description" className="form-label">
             Description:
           </label>
-          <input
+          <textarea
             type="text"
             className="form-control"
             id="description"
+            rows="5"
             value={description}
             onChange={handleDescriptionChange}
           />

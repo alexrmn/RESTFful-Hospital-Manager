@@ -21,8 +21,9 @@ public class AppointmentController {
     private final ObjectValidator<CreateAppointmentDto> createAppointmentValidator;
 
     @PostMapping
-    public ResponseEntity<?> createAppointment() {
-        Appointment appointment = appointmentService.createAppointment();
+    public ResponseEntity<?> createAppointment(CreateAppointmentDto createAppointmentDto) {
+        createAppointmentValidator.validate(createAppointmentDto);
+        Appointment appointment = appointmentService.createAppointment(createAppointmentDto);
         return ResponseEntity.ok().body(appointment);
     }
 

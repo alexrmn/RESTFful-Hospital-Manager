@@ -1,6 +1,7 @@
 package ro.alexrmn.hospitalmanagerbackend.service;
 
 import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
+import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
 
@@ -17,4 +18,6 @@ public interface DoctorService {
     Doctor updateDoctor(Long id, DoctorDto doctorDto);
 
     void deleteDoctor(Long id);
+
+    List<DoctorDto> findBySpecialty(Long specialtyId);
 }

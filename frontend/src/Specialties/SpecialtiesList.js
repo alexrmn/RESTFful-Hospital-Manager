@@ -102,11 +102,11 @@ export default function SpecialtiesList(credentials) {
             <table className="table mt-5">
                 <thead>
                     <tr>
-                        <th scope="col-1">Id</th>
-                        <th scope="col-2">Name</th>
-                        <th scope="col-5">Description</th>
-                        <th scope="col-3">Image Link</th>
-                        <th scope="col-1"></th>
+                        <th scope="col">Id</th>
+                        <th scope="col" className='col-2'>Name</th>
+                        <th scope="col" className='col-6'>Description </th>
+                        <th scope="col">Image Link</th>
+                        <th scope="col" className='col-1'></th>
                     </tr>
                 </thead>
                 <tbody>

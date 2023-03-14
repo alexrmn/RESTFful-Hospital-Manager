@@ -13,6 +13,7 @@ import DoctorList from './Layouts/Doctors/DoctorList';
 import CreateNewDoctorForm from './Layouts/Doctors/CreateNewDoctorForm';
 import EditDoctorForm from './Layouts/Doctors/EditDoctorForm';
 import ViewSpecialty from './Specialties/ViewSpecialty';
+import CreateAppointment from './Layouts/Appointments/CreateAppointment';
 
 
 
@@ -71,6 +72,7 @@ function App() {
             <>
               <Route path="/" element={<PatientDashboard {...credentials} />} />
               <Route path="/specialties/:id" element={<ViewSpecialty {...credentials} />} />
+              <Route path="/appointments/new" element={<CreateAppointment {...credentials} />} />
             </>
           )}
           {!credentials && <Route path="/" element={<SignInForm setCredentials={setCredentials} />} />}

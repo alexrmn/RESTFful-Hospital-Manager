@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ro.alexrmn.hospitalmanagerbackend.model.*;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAppointmentDto;
 import ro.alexrmn.hospitalmanagerbackend.repository.AppointmentRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.PatientRepository;
@@ -21,7 +22,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final PatientRepository patientRepository;
     private final TimeSlotRepository timeSlotRepository;
 
-    public Appointment createAppointment() {
+    public Appointment createAppointment(CreateAppointmentDto createAppointmentDto) {
         Doctor doctor = doctorRepository.findById(1L)
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
         Patient patient = patientRepository.findById(2L)

@@ -6,6 +6,6 @@ import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateAppointmentDto;
 
 public interface AppointmentService {
 
-     Appointment createAppointment();
+     Appointment createAppointment(CreateAppointmentDto createAppointmentDto);
 
 }

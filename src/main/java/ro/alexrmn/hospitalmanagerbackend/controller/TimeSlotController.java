@@ -2,13 +2,11 @@ package ro.alexrmn.hospitalmanagerbackend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.alexrmn.hospitalmanagerbackend.model.TimeSlot;
 import ro.alexrmn.hospitalmanagerbackend.service.TimeSlotService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,9 +17,15 @@ public class TimeSlotController {
 
     private final TimeSlotService timeSlotService;
 
-    @GetMapping
-    public ResponseEntity<List<TimeSlot>> getTimeSlots() {
-        List<TimeSlot> timeSlots = timeSlotService.getTimeSlots();
+    @GetMapping("/{date}/{doctorId}")
+    public ResponseEntity<List<TimeSlot>> getTimeSlots(@PathVariable LocalDate date, @PathVariable Long doctorId) {
+        List<TimeSlot> timeSlots = timeSlotService.getFreeTimeSlotsByDateAndDoctor(date, doctorId);
         return ResponseEntity.ok().body(timeSlots);
+    }
+
+    @GetMapping("1")
+    public LocalDate getTimeSlots() {
+
+        return LocalDate.now();
     }
 }

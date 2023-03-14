@@ -17,4 +17,7 @@ public class TimeSlot extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private ETimeSlot value;
+
+    private String name;
+
 }

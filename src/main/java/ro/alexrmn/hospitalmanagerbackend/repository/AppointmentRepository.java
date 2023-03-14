@@ -12,4 +12,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     Boolean existsByDateAndTimeSlotAndDoctor(LocalDate date, TimeSlot timeSlot, Doctor doctor);
 
+    List<Appointment> findByDateAndDoctor(LocalDate date, Doctor doctor);
+
 }

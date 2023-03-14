@@ -91,4 +91,12 @@ public class DoctorServiceImpl implements DoctorService{
                 .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
         doctorRepository.delete(doctor);
     }
+
+    @Override
+    public List<DoctorDto> findBySpecialty(Long specialtyId) {
+        Specialty specialty = specialtyRepository.findById(specialtyId)
+                .orElseThrow(() -> new EntityNotFoundException("Specialty not found"));
+        List<Doctor> doctors = doctorRepository.findBySpecialty(specialty);
+        return doctors.stream().map(Doctor::toDto).toList();
+    }
 }

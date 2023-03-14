@@ -1,5 +1,6 @@
 package ro.alexrmn.hospitalmanagerbackend.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,8 +8,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ro.alexrmn.hospitalmanagerbackend.Validators.ObjectValidator;
 import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
+import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
+import ro.alexrmn.hospitalmanagerbackend.repository.SpecialtyRepository;
 import ro.alexrmn.hospitalmanagerbackend.service.DoctorService;
 
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 public class DoctorController {
 
     private final DoctorService doctorService;
+    private final SpecialtyRepository specialtyRepository;
     private final ObjectValidator<CreateDoctorDto> createDoctorValidator;
     private final ObjectValidator<DoctorDto> editDoctorValidator;
 
@@ -59,4 +63,9 @@ public class DoctorController {
         return HttpStatus.ACCEPTED;
     }
 
+    @GetMapping("/specialty/{specialtyId}")
+    public ResponseEntity<List<DoctorDto>> getDoctorsBySpecialty(@PathVariable Long specialtyId) {
+        List<DoctorDto> doctorDtoList = doctorService.findBySpecialty(specialtyId);
+        return ResponseEntity.ok().body(doctorDtoList);
+    }
 }

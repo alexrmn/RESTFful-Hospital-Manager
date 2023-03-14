@@ -39,7 +39,7 @@ public class AuthenticationController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt, user.getUsername(), user.getEmail(), roles));
+        return ResponseEntity.ok(new JwtResponse(user.getId(), jwt, user.getUsername(), user.getEmail(), roles));
     }
 
 

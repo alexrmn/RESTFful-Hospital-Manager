@@ -17,8 +17,8 @@ export default function SignInForm({ setCredentials }) {
                 username,
                 password
             });
-            const { data: { token, roles } } = response;
-            setCredentials({ token, roles }); // store token and roles in parent component
+            const { data: { token, roles, userId } } = response;
+            setCredentials({ token, roles , userId}); // store token and roles in parent component
         } catch (error) {
             console.error(error);
         }
