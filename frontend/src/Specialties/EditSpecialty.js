@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function EditSpecialty(credentials) {
   const [name, setName] = useState('');
@@ -54,9 +55,20 @@ export default function EditSpecialty(credentials) {
       .then((response) => {
         console.log(response);
         navigate("/specialties")
+        toast.success('Specialty created successfully!', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+      });
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Error creating specialty. Please try again.")
       });
   };
 

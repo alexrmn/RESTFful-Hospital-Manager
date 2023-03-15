@@ -62,7 +62,7 @@ export default function (credentials) {
                     ))}
                 </ul>
                 <br></br>
-                <Link className="btn btn-outline-secondary mt-5" to="/appointments/new">Book an Apppointment</Link>
+                <Link className="btn btn-outline-secondary mt-5" to={`/appointments/new?spId=${specialty.id}`}>Book an Apppointment</Link>
             </div>
         </div>
     )

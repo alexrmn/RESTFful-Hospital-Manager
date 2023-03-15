@@ -18,7 +18,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Patient extends User{
+public class Patient extends User {
 
     private String phoneNumber;
 

@@ -1,14 +1,12 @@
 package ro.alexrmn.hospitalmanagerbackend.controller;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ro.alexrmn.hospitalmanagerbackend.Validators.ObjectValidator;
+import ro.alexrmn.hospitalmanagerbackend.validators.ObjectValidator;
 import ro.alexrmn.hospitalmanagerbackend.model.Doctor;
-import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateDoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.DoctorDto;
 import ro.alexrmn.hospitalmanagerbackend.repository.SpecialtyRepository;
@@ -41,19 +39,19 @@ public class DoctorController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Doctor> createDoctor(@RequestBody CreateDoctorDto createDoctorDto) {
+    public ResponseEntity<DoctorDto> createDoctor(@RequestBody CreateDoctorDto createDoctorDto) {
         createDoctorValidator.validate(createDoctorDto);
         Doctor doctor = doctorService.saveDoctor(createDoctorDto);
-        return ResponseEntity.accepted().body(doctor);
+        return ResponseEntity.accepted().body(doctor.toDto());
     }
 
     @PutMapping("/{doctorId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Doctor> updateDoctor
+    public ResponseEntity<DoctorDto> updateDoctor
             (@RequestBody DoctorDto doctorDto, @PathVariable Long doctorId){
         editDoctorValidator.validate(doctorDto);
         Doctor doctor = doctorService.updateDoctor(doctorId, doctorDto);
-        return ResponseEntity.accepted().body(doctor);
+        return ResponseEntity.accepted().body(doctor.toDto());
     }
 
     @DeleteMapping("/{doctorId}")

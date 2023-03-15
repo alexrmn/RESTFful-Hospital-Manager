@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function EditDoctorForm(credentials) {
     const [firstName, setFirstName] = useState('');
@@ -23,6 +24,7 @@ export default function EditDoctorForm(credentials) {
             setLastName(doctor.lastName);
             setEmail(doctor.email);
             setSelectedSpecialty(doctor.specialty);
+            
         } catch (error) {
             console.error(error);
         }
@@ -60,9 +62,20 @@ export default function EditDoctorForm(credentials) {
                 },
                 { headers: { Authorization: `Bearer ${credentials.token}` } }
             );
+            toast.success('Doctor account edited successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             navigate('/doctors');
         } catch (error) {
             console.error(error);
+            toast.error("Error editing doctor acount. Please try again.");
         }
     };
 

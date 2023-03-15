@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 const ROLE_PATIENT = 'ROLE_PATIENT';
+const ROLE_DOCTOR = 'ROLE_DOCTOR';
 
 export default function Navbar({ credentials, setCredentials }) {
   const navigate = useNavigate();
@@ -36,14 +37,27 @@ export default function Navbar({ credentials, setCredentials }) {
               </Link>
             </li>
             {credentials && credentials.roles.includes(ROLE_PATIENT) && (
-              <li>
-                <Link
-                  className="nav-link"
-                  to="/appointments/new"
-                >
-                  Book an Appointment
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link className="nav-link" to="/appointments/new">Book an Appointment</Link>
+                </li>
+                <li>
+                  <Link className="nav-link" to={`/appointments/upcoming`}>Upcoming Appointments</Link>
+                </li>
+                <li>
+                  <Link className="nav-link" to={`/appointments/history`}>Appointment History</Link>
+                </li>
+              </>
+            )}
+            {credentials && credentials.roles.includes(ROLE_DOCTOR) && (
+              <>
+                <li>
+                  <Link className="nav-link" to="/appointments">Scheduled Appointments</Link>
+                </li>
+                <li>
+                  <Link className="nav-link" to="/patients/search">Search for Patient</Link>
+                </li>
+              </>
             )}
           </ul>
           {credentials && (

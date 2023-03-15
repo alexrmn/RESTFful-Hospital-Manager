@@ -5,10 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ro.alexrmn.hospitalmanagerbackend.Validators.ObjectValidator;
+import ro.alexrmn.hospitalmanagerbackend.validators.ObjectValidator;
 import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
-import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateSpecialtyDto;
-import ro.alexrmn.hospitalmanagerbackend.model.dto.PatientDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.SpecialtyDto;
 import ro.alexrmn.hospitalmanagerbackend.service.SpecialtyService;
 

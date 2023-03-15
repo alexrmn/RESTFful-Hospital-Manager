@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function CreateNewDoctorForm(credentials) {
     const [username, setUsername] = useState('');
@@ -45,9 +46,20 @@ export default function CreateNewDoctorForm(credentials) {
                 },
                 { headers: { Authorization: `Bearer ${credentials.token}` } }
             );
+            toast.success('Doctor account created successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             navigate("/doctors")
         } catch (error) {
             console.error(error);
+            toast.error("Error creating doctor acount. Please try again.");
         }
     };
 

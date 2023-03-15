@@ -5,15 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import ro.alexrmn.hospitalmanagerbackend.Validators.ObjectValidator;
-import ro.alexrmn.hospitalmanagerbackend.exception.NotAuthorizedToViewResourceException;
+import ro.alexrmn.hospitalmanagerbackend.validators.ObjectValidator;
 import ro.alexrmn.hospitalmanagerbackend.model.Patient;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.CreatePatientDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.PatientDto;
 import ro.alexrmn.hospitalmanagerbackend.service.PatientService;
-import ro.alexrmn.hospitalmanagerbackend.utils.AuthUtils;
 
 import java.util.List;
 
@@ -36,11 +33,12 @@ public class PatientController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
     public ResponseEntity<List<PatientDto>> getPatients() {
         List<PatientDto> patientDtoList = patientService.getPatients();
         return ResponseEntity.ok().body(patientDtoList);
     }
+    
 
     @PostMapping
     public ResponseEntity<Patient> createPatient(@RequestBody CreatePatientDto createPatientDto){

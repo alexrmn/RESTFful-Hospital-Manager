@@ -1,20 +1,29 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 
 export default function (credentials) {
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const spId = searchParams.get('spId');
+
     const [specialties, setSpecialties] = useState([]);
-    const [specialtyId, setSpecialtyId] = useState('');
+    const [specialtyId, setSpecialtyId] = useState(spId || '');
     const [doctors, setDoctors] = useState([]);
     const [doctorId, setDoctorId] = useState('');
     const [timeslots, setTimeslots] = useState([]);
     const [timeslotId, setTimeslotId] = useState('');
     const [date, setDate] = useState('');
     const [initializedDate, setInitializedDate] = useState(false);
+    const navigate = useNavigate();
 
+    
 
-
+    
     useEffect(() => {
         const fetchSpecialties = async () => {
             try {
@@ -31,6 +40,9 @@ export default function (credentials) {
             fetchSpecialties();
         }
     }, [credentials]);
+
+
+
 
     useEffect(() => {
         const fetchDoctors = async () => {
@@ -84,10 +96,23 @@ export default function (credentials) {
                 { headers: { Authorization: `Bearer ${credentials.token}` } }
             );
             console.log(response);
-            
+            toast.success('Appointment created successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            navigate("/")
+
 
         } catch (error) {
             console.error(error);
+            toast.error('Error creating appointment. Please try again.');
+
         }
     };
 
@@ -166,11 +191,11 @@ export default function (credentials) {
                 <button
                     type="submit"
                     className="btn btn-outline-secondary mt-3"
-                    
-                >Create Appointment
+                >
+                    Create Appointment
                 </button>
             </form>
-            
+
         </div>
     )
 }

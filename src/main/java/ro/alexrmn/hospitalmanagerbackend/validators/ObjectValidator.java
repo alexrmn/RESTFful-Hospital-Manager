@@ -1,4 +1,4 @@
-package ro.alexrmn.hospitalmanagerbackend.Validators;
+package ro.alexrmn.hospitalmanagerbackend.validators;
 
 
 import jakarta.validation.*;

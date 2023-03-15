@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function SpecialtiesList(credentials) {
 
@@ -42,8 +43,19 @@ export default function SpecialtiesList(credentials) {
             setShowForm(false);
             setNewSpecialtyName('');
             setNewSpecialtyDescription('');
+            toast.success('Appointment created successfully!', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         } catch (error) {
             console.error(error);
+            toast.error('Error creating specialty. Please try again.');
         }
     };
 

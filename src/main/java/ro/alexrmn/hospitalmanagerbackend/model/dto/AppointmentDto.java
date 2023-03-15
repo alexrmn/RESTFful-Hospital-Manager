@@ -13,6 +13,8 @@ public class AppointmentDto extends BaseEntity{
 
     private LocalDate date;
 
+    private TimeSlot timeSlot;
+
     private PatientDto patient;
 
     private DoctorDto doctor;

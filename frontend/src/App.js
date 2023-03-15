@@ -15,6 +15,15 @@ import EditDoctorForm from './Layouts/Doctors/EditDoctorForm';
 import ViewSpecialty from './Specialties/ViewSpecialty';
 import CreateAppointment from './Layouts/Appointments/CreateAppointment';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UpcomingAppointments from './Layouts/Appointments/UpcomingAppointments';
+import AppointmentsHistory from './Layouts/Appointments/AppointmentsHistory';
+import EditAppointment from './Layouts/Appointments/EditAppointment';
+import ViewAppointmentsByDoctor from './Layouts/Appointments/ViewAppointmentsByDoctor';
+import SearchForPatient from './Layouts/Patient/SearchForPatient';
+import PatientHistory from './Layouts/Patient/PatientHistory';
+
 
 
 function App() {
@@ -53,36 +62,45 @@ function App() {
 
   return (
     <>
-      
-      
-        <div className="App">
-          <Navbar credentials={credentials} setCredentials={setCredentials} />
-          <Routes>
-            {/* Render different components based on user role */}
-            {isAdmin() && (
-              <>
-                <Route path="/" element={<AdminDashboard />} />
-                <Route path="/specialties" element={<SpecialtiesList {...credentials} />} />
-                <Route path="/specialties/:id/edit" element={<EditSpecialty {...credentials} />} />
-                <Route path="/doctors" element={<DoctorList {...credentials} />} />
-                <Route path="/doctors/new" element={<CreateNewDoctorForm {...credentials} />} />
-                <Route path="/doctors/:id/edit" element={<EditDoctorForm {...credentials} />} />
-              </>
-            )}
-            {isDoctor() && <Route path="/" element={<DoctorDashboard />} />}
-            {isPatient() && (
-              <>
-                <Route path="/" element={<PatientDashboard {...credentials} />} />
-                <Route path="/specialties/:id" element={<ViewSpecialty {...credentials} />} />
-                <Route path="/appointments/new" element={<CreateAppointment {...credentials} />} />
-              </>
-            )}
-            {!credentials && <Route path="/" element={<SignInForm setCredentials={setCredentials} />} />}
-            <Route path="/register" element={<RegistrationForm />} />
-          </Routes>
+      <div className="App">
+        <Navbar credentials={credentials} setCredentials={setCredentials} />
+        <Routes>
+          {/* Render different components based on user role */}
+          {isAdmin() && (
+            <>
+              <Route path="/" element={<AdminDashboard />} />
+              <Route path="/specialties" element={<SpecialtiesList {...credentials} />} />
+              <Route path="/specialties/:id/edit" element={<EditSpecialty {...credentials} />} />
+              <Route path="/doctors" element={<DoctorList {...credentials} />} />
+              <Route path="/doctors/new" element={<CreateNewDoctorForm {...credentials} />} />
+              <Route path="/doctors/:id/edit" element={<EditDoctorForm {...credentials} />} />
+            </>
+          )}
+          {isDoctor() && (
+            <>
+              <Route path="/" element={<DoctorDashboard {...credentials}/>} />
+              <Route path="/appointments" element={<ViewAppointmentsByDoctor {...credentials} />} />
+              <Route path="/patients/search" element={<SearchForPatient {...credentials} />} />
+              <Route path="/patients/:id/history" element={<PatientHistory {...credentials} />} />
 
-        </div>
-      
+            </>
+            )}
+          {isPatient() && (
+            <>
+              <Route path="/" element={<PatientDashboard {...credentials} />} />
+              <Route path="/specialties/:id" element={<ViewSpecialty {...credentials} />} />
+              <Route path="/appointments/new" element={<CreateAppointment {...credentials} />} />
+              <Route path="/appointments/upcoming" element={<UpcomingAppointments {...credentials} />} />
+              <Route path="/appointments/history" element={<AppointmentsHistory {...credentials} />} />
+              <Route path="/appointments/:id/edit" element={<EditAppointment {...credentials} />} />
+            </>
+          )}
+          {!credentials && <Route path="/" element={<SignInForm setCredentials={setCredentials} />} />}
+          <Route path="/register" element={<RegistrationForm />} />
+        </Routes>
+
+      </div>
+      <ToastContainer position='toast.POSITION.TOP_CENTER' />
     </>
 
   );

@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class NotAuthorizedToViewResourceException extends RuntimeException{
+public class NotAuthorizedException extends RuntimeException {
     private String message;
 }
