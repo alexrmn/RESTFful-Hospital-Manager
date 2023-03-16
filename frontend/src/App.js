@@ -23,6 +23,8 @@ import EditAppointment from './Layouts/Appointments/EditAppointment';
 import ViewAppointmentsByDoctor from './Layouts/Appointments/ViewAppointmentsByDoctor';
 import SearchForPatient from './Layouts/Patient/SearchForPatient';
 import PatientHistory from './Layouts/Patient/PatientHistory';
+import DiagnosesList from './Layouts/Diagnoses/DiagnosesList';
+import EditDiagnosis from './Layouts/Diagnoses/EditDiagnosis';
 
 
 
@@ -74,6 +76,8 @@ function App() {
               <Route path="/doctors" element={<DoctorList {...credentials} />} />
               <Route path="/doctors/new" element={<CreateNewDoctorForm {...credentials} />} />
               <Route path="/doctors/:id/edit" element={<EditDoctorForm {...credentials} />} />
+              <Route path="/diagnoses" element={<DiagnosesList {...credentials} />} />
+              <Route path="/diagnoses/:id/edit" element={<EditDiagnosis {...credentials} />} />
             </>
           )}
           {isDoctor() && (

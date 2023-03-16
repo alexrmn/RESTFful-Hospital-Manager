@@ -2,19 +2,18 @@ package ro.alexrmn.hospitalmanagerbackend.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import ro.alexrmn.hospitalmanagerbackend.model.BaseEntity;
 
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpecialtyDto {
+public class SpecialtyDto extends BaseEntity {
 
-
-    private Long id;
 
     @NotBlank(message ="Name must not be blank")
     private String name;

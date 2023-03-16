@@ -5,7 +5,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ro.alexrmn.hospitalmanagerbackend.model.Specialty;
-import ro.alexrmn.hospitalmanagerbackend.model.dto.CreateSpecialtyDto;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.SpecialtyDto;
 import ro.alexrmn.hospitalmanagerbackend.repository.AppointmentRepository;
 import ro.alexrmn.hospitalmanagerbackend.repository.DoctorRepository;

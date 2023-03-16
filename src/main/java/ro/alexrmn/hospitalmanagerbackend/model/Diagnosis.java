@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.DiagnosisDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,12 @@ public class Diagnosis extends  NamedResource{
     @ManyToMany(mappedBy = "diagnoses")
     private List<Appointment> appointments;
 
+    public DiagnosisDto toDto() {
+        return DiagnosisDto.builder()
+                .id(this.getId())
+                .name(this.getName())
+                .build();
+    }
     public void addAppointment(Appointment appointment){
         if (this.appointments == null) {
             this.appointments = new ArrayList<>();

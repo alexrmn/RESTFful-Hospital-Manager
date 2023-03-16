@@ -62,10 +62,15 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/patients").permitAll()
-                .requestMatchers("/auth/**").permitAll()
-                .requestMatchers("/test/**", "/doctors/**", "/patients/**", "/appointments/**", "/specialties/**", "/timeslots/**").authenticated()
-                .requestMatchers("/admins/**").hasRole("ADMIN")
-                .anyRequest().authenticated();
+                .requestMatchers("/auth/**")
+                    .permitAll()
+                .requestMatchers("/test/**", "/doctors/**", "/patients/**", "/diagnoses",
+                        "/appointments/**", "/specialties/**", "/timeslots/**")
+                    .authenticated()
+                .requestMatchers("/admins/**")
+                    .hasRole("ADMIN")
+                .anyRequest()
+                    .authenticated();
 
 
 
