@@ -25,6 +25,9 @@ import SearchForPatient from './Layouts/Patient/SearchForPatient';
 import PatientHistory from './Layouts/Patient/PatientHistory';
 import DiagnosesList from './Layouts/Diagnoses/DiagnosesList';
 import EditDiagnosis from './Layouts/Diagnoses/EditDiagnosis';
+import ProceduresList from './Layouts/Procedures/ProceduresList';
+import EditProcedure from './Layouts/Procedures/EditProcedure';
+import DoctorAppointmentDetails from './Layouts/Appointments/DoctorAppointmentDetails';
 
 
 
@@ -78,12 +81,15 @@ function App() {
               <Route path="/doctors/:id/edit" element={<EditDoctorForm {...credentials} />} />
               <Route path="/diagnoses" element={<DiagnosesList {...credentials} />} />
               <Route path="/diagnoses/:id/edit" element={<EditDiagnosis {...credentials} />} />
+              <Route path="/procedures" element={<ProceduresList {...credentials} />} />
+              <Route path="/procedures/:id/edit" element={<EditProcedure {...credentials} />} />
             </>
           )}
           {isDoctor() && (
             <>
               <Route path="/" element={<DoctorDashboard {...credentials}/>} />
               <Route path="/appointments" element={<ViewAppointmentsByDoctor {...credentials} />} />
+              <Route path="/appointments/:id" element={<DoctorAppointmentDetails {...credentials} />} />
               <Route path="/patients/search" element={<SearchForPatient {...credentials} />} />
               <Route path="/patients/:id/history" element={<PatientHistory {...credentials} />} />
 

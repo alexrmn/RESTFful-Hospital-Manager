@@ -9,6 +9,7 @@ export default function AdminDashboard() {
         <Link to="/specialties" className='btn btn-primary m-2'>Specialties</Link>
         <Link to="/doctors" className='btn btn-primary m-2'>Doctors</Link>
         <Link to="/diagnoses" className='btn btn-primary m-2'>Diagnoses</Link>
+        <Link to="/procedures" className='btn btn-primary m-2'>Procedures</Link>
       </div>
     </div>
   )

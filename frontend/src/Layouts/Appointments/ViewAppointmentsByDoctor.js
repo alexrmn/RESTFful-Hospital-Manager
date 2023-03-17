@@ -48,7 +48,7 @@ export default function ViewAppointmentsByDoctor(credentials) {
                             <td>
                                 <button
                                     className="btn btn-primary mx-1"
-                                    // onClick={() => handleEditAppointment(appointment.id)}
+                                    onClick={() => navigate(`/appointments/${appointment.id}`)}
                                 >
                                     View Appointment
                                 </button>

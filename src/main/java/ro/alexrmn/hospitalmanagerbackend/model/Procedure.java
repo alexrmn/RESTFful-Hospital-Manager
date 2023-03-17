@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.DiagnosisDto;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.ProcedureDto;
 
 import java.util.List;
 
@@ -18,4 +20,11 @@ public class Procedure extends NamedResource {
 
     @ManyToMany(mappedBy = "procedures")
     private List<Appointment> appointments;
+
+    public ProcedureDto toDto() {
+        return ProcedureDto.builder()
+                .id(this.getId())
+                .name(this.getName())
+                .build();
+    }
 }

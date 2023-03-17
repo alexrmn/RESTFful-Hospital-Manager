@@ -17,7 +17,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Diagnosis extends  NamedResource{
+public class Diagnosis extends NamedResource {
 
     @ManyToMany(mappedBy = "diagnoses")
     private List<Appointment> appointments;
