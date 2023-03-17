@@ -1,5 +1,6 @@
 package ro.alexrmn.hospitalmanagerbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ import java.util.List;
 public class Procedure extends NamedResource {
 
     @ManyToMany(mappedBy = "procedures")
+    @JsonIgnore
     private List<Appointment> appointments;
 
     public ProcedureDto toDto() {

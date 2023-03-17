@@ -63,4 +63,12 @@ public class AppointmentController {
         return ResponseEntity.ok().body(appointmentDtoList);
     }
 
+    @GetMapping("{appointmentId}")
+    @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
+    public ResponseEntity<AppointmentDto> getAppointment(@PathVariable Long appointmentId) {
+        AppointmentDto appointmentDto = appointmentService.getAppointment(appointmentId);
+        return ResponseEntity.ok().body(appointmentDto);
+    }
+
+
 }

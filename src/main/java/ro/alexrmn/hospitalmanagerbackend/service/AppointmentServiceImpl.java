@@ -131,6 +131,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     }
 
+    @Override
+    public AppointmentDto getAppointment(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        return appointment.toDto();
+    }
+
     private boolean appointmentBelongsToUser(Appointment appointment) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return Objects.equals(appointment.getPatient().getId(), user.getId());

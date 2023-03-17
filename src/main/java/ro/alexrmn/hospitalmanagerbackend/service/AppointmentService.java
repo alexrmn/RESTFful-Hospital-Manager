@@ -19,4 +19,6 @@ public interface AppointmentService {
     AppointmentDto updateAppointment(Long appointmentId, CreateAppointmentDto createAppointmentDto);
 
     List<AppointmentDto> getAppointmentsByDoctor(Long doctorId);
+
+    AppointmentDto getAppointment(Long appointmentId);
 }

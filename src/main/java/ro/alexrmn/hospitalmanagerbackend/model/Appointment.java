@@ -109,6 +109,7 @@ public class Appointment extends BaseEntity {
                 .diagnoses(this.getDiagnoses())
                 .procedures(this.procedures)
                 .medications(this.medications)
+                .timeSlot(this.timeSlot)
                 .build();
     }
 
