@@ -70,5 +70,12 @@ public class AppointmentController {
         return ResponseEntity.ok().body(appointmentDto);
     }
 
+    @PostMapping("/{appointmentId}/diagnosis/{diagnosisId}")
+    @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
+    public HttpStatus addDiagnosisToAppointment(@PathVariable Long appointmentId, @PathVariable Long diagnosisId) {
+        appointmentService.addDiagnosisToAppointment(appointmentId, diagnosisId);
+        return HttpStatus.ACCEPTED;
+    }
+
 
 }

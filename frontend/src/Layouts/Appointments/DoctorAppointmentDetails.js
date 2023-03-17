@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function DoctorAppointmentDetails (credentials) {
+
+export default function DoctorAppointmentDetails(credentials) {
   const { id } = useParams();
   const [appointment, setAppointment] = useState(null);
   const [diagnoses, setDiagnoses] = useState([]);
   const [showDiagnosesList, setShowDiagnosesList] = useState(false);
   const [procedures, setProcedures] = useState([]);
   const [showProceduresList, setShowProceduresList] = useState(false);
-  
+
+  const [searchDiagnosisQuery, setSearchDiagnosisQuery] = useState('');
+  const [searchProcedureQuery, setSearchProcedureQuery] = useState('');
 
   useEffect(() => {
     const fetchAppointment = async () => {
@@ -50,14 +53,57 @@ export default function DoctorAppointmentDetails (credentials) {
     fetchProcedures();
   }, [credentials, id]);
 
-  const handleDiagnosesClick = () => {
+
+  const filteredDiagnoses = diagnoses.filter(
+    (diagnosis) =>
+      `${diagnosis.name}`
+        .toLowerCase()
+        .includes(searchDiagnosisQuery.toLowerCase())
+  );
+
+  const filteredProcedures = procedures.filter(
+    (procedure) =>
+      `${procedure.name}`
+        .toLowerCase()
+        .includes(searchProcedureQuery.toLowerCase())
+  );
+
+  const handleAddDiagnosesClick = () => {
     setShowDiagnosesList(!showDiagnosesList);
   };
 
-  const handleProceduresClick = () => {
+  const handleAddProceduresClick = () => {
     setShowProceduresList(!showProceduresList);
   };
 
+  const handleDiagnosisSearchQueryChange = (event) => {
+    setSearchDiagnosisQuery(event.target.value);
+  };
+
+  const handleProcedureSearchQueryChange = (event) => {
+    setSearchProcedureQuery(event.target.value);
+  };
+
+  const handleAddDiagnosisClick = async (diagnosis) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/appointments/${id}/diagnosis/${diagnosis.id}`,
+        null,
+        {
+          headers: { Authorization: `Bearer ${credentials.token}` },
+        }
+      );
+      console.log("Diagnosis added successfully");
+      // add new diagnosis to appointment object in state
+      setAppointment((prevState) => ({
+        ...prevState,
+        diagnoses: [...prevState.diagnoses, diagnosis],
+      }));
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
   return (
@@ -72,56 +118,83 @@ export default function DoctorAppointmentDetails (credentials) {
             <h4 className="card-subtitle mb-2 text-muted">Date: {appointment.date}</h4>
             <h4 className="card-subtitle mb-2 text-muted">Time: {appointment.timeSlot.name}</h4>
             <table className="table">
-              <td className="col-6">
-                <div className="text-left mt-3">
-                  <h4>Diagnoses:</h4>
-                  <ul className="list-group">
-                    {appointment.diagnoses.map((diagnosis) => (
-                      <li key={diagnosis.id} className="list-group-item">
-                        {diagnosis.name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="text-left mb-5">
-                  <h4>Procedures:</h4>
-                  <ul className="list-group">
-                    {appointment.procedures.map((procedure) => (
-                      <li key={procedure.id} className="list-group-item">
-                        {procedure.name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <tbody>
+                <tr>
+                  <td className="col-6">
+                    <div className="text-left mt-3">
+                      <h4>Diagnoses:</h4>
+                      <ul className="list-group">
+                        {appointment.diagnoses.map((diagnosis) => (
+                          <li key={diagnosis.id} className="list-group-item">
+                            {diagnosis.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="text-left mb-5">
+                      <h4>Procedures:</h4>
+                      <ul className="list-group">
+                        {appointment.procedures.map((procedure) => (
+                          <li key={procedure.id} className="list-group-item">
+                            {procedure.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-              </td>
-              <td className="col-6">
-                <button className="btn btn-primary my-4" onClick={handleDiagnosesClick}>
-                  Add Diagnoses
-                </button>
-                {showDiagnosesList && (
-                  <ul className="list-group">
-                    {diagnoses.map((diagnosis) => (
-                      <li key={diagnosis.id} className="list-group-item">
-                        {diagnosis.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <br></br>
-                <button className="btn btn-primary my-4" onClick={handleProceduresClick}>Add Procedures</button>
-                {showProceduresList && (
-                  <ul className="list-group">
-                    {procedures.map((procedure) => (
-                      <li key={procedure.id} className="list-group-item">
-                        {procedure.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </td>
+                  </td>
+                  <td className="col-6">
+                    <button className="btn btn-primary my-4" onClick={handleAddDiagnosesClick}>
+                      Add Diagnoses
+                    </button>
+                    {showDiagnosesList && (
+                      <>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Search:"
+                          value={searchDiagnosisQuery}
+                          onChange={handleDiagnosisSearchQueryChange}
+                        />
+                        <ul className="list-group">
+                          {filteredDiagnoses.map((diagnosis) => (
+                            <li key={diagnosis.id} className="list-group-item">
+                              <table className="table">
+                                <td className="col-11">{diagnosis.name}</td>
+                                <td className="col-1">
+                                  <button onClick={() => handleAddDiagnosisClick(diagnosis)}>add</button>
+                                </td>
+                              </table>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    <br></br>
+                    <button className="btn btn-primary my-4" onClick={(handleAddProceduresClick)}>Add Procedures</button>
+                    {showProceduresList && (
+                      <>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Search:"
+                          value={searchProcedureQuery}
+                          onChange={handleProcedureSearchQueryChange}
+                        />
+
+                        <ul className="list-group">
+                          {filteredProcedures.map((procedure) => (
+                            <li key={procedure.id} className="list-group-item">
+                              {procedure.name}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              </tbody>
             </table>
-
           </div>
         </div>
       )}

@@ -27,6 +27,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final PatientRepository patientRepository;
     private final TimeSlotRepository timeSlotRepository;
     private final SpecialtyRepository specialtyRepository;
+    private final DiagnosisRepository diagnosisRepository;
 
     public AppointmentDto createAppointment(CreateAppointmentDto createAppointmentDto) {
         Doctor doctor = doctorRepository.findById(createAppointmentDto.getDoctorId())
@@ -136,6 +137,16 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
         return appointment.toDto();
+    }
+
+    @Override
+    public void addDiagnosisToAppointment(Long appointmentId, Long diagnosisId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        Diagnosis diagnosis = diagnosisRepository.findById(diagnosisId)
+                .orElseThrow(() -> new EntityNotFoundException("Diagnosis not found"));
+        appointment.addDiagnosis(diagnosis);
+        appointmentRepository.save(appointment);
     }
 
     private boolean appointmentBelongsToUser(Appointment appointment) {

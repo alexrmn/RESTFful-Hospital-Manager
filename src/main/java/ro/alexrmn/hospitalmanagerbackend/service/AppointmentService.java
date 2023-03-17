@@ -21,4 +21,6 @@ public interface AppointmentService {
     List<AppointmentDto> getAppointmentsByDoctor(Long doctorId);
 
     AppointmentDto getAppointment(Long appointmentId);
+
+    void addDiagnosisToAppointment(Long appointmentId, Long diagnosisId);
 }
