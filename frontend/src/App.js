@@ -106,7 +106,6 @@ function App() {
               <Route path="/appointments/history" element={<AppointmentsHistory {...credentials} />} />
               <Route path="/appointments/:id/edit" element={<EditAppointment {...credentials} />} />
               <Route path="/appointments/:id/details" element={<AppointmentDetails {...credentials} />} />
-
             </>
           )}
           {!credentials && <Route path="/" element={<SignInForm setCredentials={setCredentials} />} />}
