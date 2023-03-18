@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 export default function Summary({ appointmentId, credentials, initialSummary }) {
-    const [summary, setSummary] = useState(initialSummary);
+    const [summary, setSummary] = useState(initialSummary || '');
   
     const handleSaveSummary = async () => {
   
@@ -13,6 +14,16 @@ export default function Summary({ appointmentId, credentials, initialSummary }) 
         { headers: { Authorization: `Bearer ${credentials.token}` } }
       );
       console.log('Summary saved successfully');
+      toast.success('Saved!', {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
     } catch (error) {
       console.error(error);
     }

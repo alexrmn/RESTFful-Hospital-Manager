@@ -48,7 +48,7 @@ export default function CreateNewDoctorForm(credentials) {
             );
             toast.success('Doctor account created successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1500,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -59,7 +59,16 @@ export default function CreateNewDoctorForm(credentials) {
             navigate("/doctors")
         } catch (error) {
             console.error(error);
-            toast.error("Error creating doctor acount. Please try again.");
+            toast.error("Error creating doctor acount. Please try again.", {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
 
@@ -68,28 +77,28 @@ export default function CreateNewDoctorForm(credentials) {
             <h1>Create New Doctor Account</h1>
             <form onSubmit={handleSubmit} className="form mx-auto col-4 mt-3">
                 <div className="mb-3">
-                    <label htmlFor="username" className="form-label">Username</label>
-                    <input type="text" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <label htmlFor="username"  className="form-label">Username</label>
+                    <input type="text" required className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" required className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="firstName" className="form-label">First Name</label>
-                    <input type="text" className="form-control" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                    <input type="text" required className="form-control" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="lastName" className="form-label">Last Name</label>
-                    <input type="text" className="form-control" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                    <input type="text" required className="form-control" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email</label>
-                    <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" required className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="specialty" className="form-label">Specialty</label>
-                    <select className="form-control" id="specialty" value={selectedSpecialty} onChange={(e) => setSelectedSpecialty(e.target.value)}>
+                    <select className="form-control" required id="specialty" value={selectedSpecialty} onChange={(e) => setSelectedSpecialty(e.target.value)}>
                         <option value="">-- Select Specialty --</option>
                         {specialties.map((specialty) => (
                             <option key={specialty.id} value={specialty.name}>{specialty.name}</option>

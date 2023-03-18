@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import hospitalImage from '../../Images/hospital.jpg'
+import { toast } from 'react-toastify';
 
 
 
@@ -21,6 +22,16 @@ export default function SignInForm({ setCredentials }) {
             setCredentials({ token, roles , userId}); // store token and roles in parent component
         } catch (error) {
             console.error(error);
+            toast.error (error.response.data, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
     };
     return (
@@ -32,6 +43,7 @@ export default function SignInForm({ setCredentials }) {
                             <label htmlFor="username">Username</label>
                             <input
                                 type="text"
+                                required
                                 className="form-control"
                                 id="username"
                                 value={username}
@@ -42,6 +54,7 @@ export default function SignInForm({ setCredentials }) {
                             <label htmlFor="password">Password</label>
                             <input
                                 type="password"
+                                required
                                 className="form-control"
                                 id="password"
                                 value={password}

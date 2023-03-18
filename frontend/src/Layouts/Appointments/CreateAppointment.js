@@ -98,7 +98,7 @@ export default function (credentials) {
             console.log(response);
             toast.success('Appointment created successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1500,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -111,11 +111,19 @@ export default function (credentials) {
 
         } catch (error) {
             console.error(error);
-            toast.error('Error creating appointment. Please try again.');
+            toast.error('Error creating appointment. Please try again.', {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
 
         }
     };
-
 
     return (
         <div className='col-3 mx-auto mt-5'>

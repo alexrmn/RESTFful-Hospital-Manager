@@ -53,7 +53,7 @@ export default function DiagnosesList(credentials) {
             setNewDiagnosisName('');
             toast.success('Diagnosis created successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1500,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -63,7 +63,16 @@ export default function DiagnosesList(credentials) {
             });
         } catch (error) {
             console.error(error);
-            toast.error('Error creating diagnosis. Please try again.');
+            toast.error('Error creating diagnosis. Please try again.', {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
 
@@ -85,6 +94,7 @@ export default function DiagnosesList(credentials) {
                         <label htmlFor="name">Name:</label>
                         <input
                             type="text"
+                            required
                             className="form-control"
                             id="name"
                             value={newDiagnosisName}

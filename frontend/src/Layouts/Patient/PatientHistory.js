@@ -52,7 +52,7 @@ export default function PatientHistory(credentials) {
                             <td>
                                 <button
                                     className="btn btn-primary mx-1"
-                                    onClick={handleViewDetails(appointment.id)}
+                                    onClick={() => handleViewDetails(appointment.id)}
                                 >
                                     View Details
                                 </button> 

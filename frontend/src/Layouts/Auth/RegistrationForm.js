@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function RegistrationForm() {
     const [firstName, setFirstName] = useState('');
@@ -29,9 +30,29 @@ export default function RegistrationForm() {
             console.log(response);
             // Redirect to homepage after form submission
             navigate('/');
+            toast.success("Registered!", {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
 
         } catch (error) {
             console.error(error);
+            toast.error("Something went wrong. Please try again.", {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
     };
 
@@ -43,6 +64,7 @@ export default function RegistrationForm() {
                     <label htmlFor="firstName">First Name</label>
                     <input
                         type="text"
+                        required
                         className="form-control"
                         id="firstName"
                         value={firstName}
@@ -53,6 +75,7 @@ export default function RegistrationForm() {
                     <label htmlFor="lastName">Last Name</label>
                     <input
                         type="text"
+                        required
                         className="form-control"
                         id="lastName"
                         value={lastName}
@@ -63,6 +86,7 @@ export default function RegistrationForm() {
                     <label htmlFor="username">Username</label>
                     <input
                         type="text"
+                        required
                         className="form-control"
                         id="username"
                         value={username}
@@ -73,6 +97,7 @@ export default function RegistrationForm() {
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
+                        required
                         className="form-control"
                         id="password"
                         value={password}
@@ -83,6 +108,7 @@ export default function RegistrationForm() {
                     <label htmlFor="email">Email</label>
                     <input
                         type="email"
+                        required
                         className="form-control"
                         id="email"
                         value={email}
@@ -93,6 +119,7 @@ export default function RegistrationForm() {
                     <label htmlFor="phoneNumber">Phone Number</label>
                     <input
                         type="tel"
+                        required
                         className="form-control"
                         id="phoneNumber"
                         value={phoneNumber}

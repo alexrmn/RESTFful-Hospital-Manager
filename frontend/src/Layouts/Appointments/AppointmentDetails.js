@@ -61,7 +61,7 @@ export default function AppointmentDetails(credentials) {
             </table>
             <div className="mt-5">
               <h4>Appointment summary</h4>
-              {appointment.summary.split('\n').map((line, index) => (
+              {appointment.summary && appointment.summary.split('\n').map((line, index) => (
                 <p className="text-start" key={index}>{line}</p>
               ))}
             </div>

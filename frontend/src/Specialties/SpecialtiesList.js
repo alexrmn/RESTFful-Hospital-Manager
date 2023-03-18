@@ -45,7 +45,7 @@ export default function SpecialtiesList(credentials) {
             setNewSpecialtyDescription('');
             toast.success('Appointment created successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1500,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -55,7 +55,16 @@ export default function SpecialtiesList(credentials) {
             });
         } catch (error) {
             console.error(error);
-            toast.error('Error creating specialty. Please try again.');
+            toast.error('Error creating specialty. Please try again.',{
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
 
@@ -88,6 +97,7 @@ export default function SpecialtiesList(credentials) {
                         <label htmlFor="name">Name:</label>
                         <input
                             type="text"
+                            required
                             className="form-control"
                             id="name"
                             value={newSpecialtyName}
@@ -104,6 +114,7 @@ export default function SpecialtiesList(credentials) {
                     <label htmlFor="imageLink">Image Link:</label>
                     <textarea
                         className="form-control"
+                        required
                         id="imageLink"
                         value={newSpecialtyImageLink}
                         onChange={(event) => setNewSpecialtyImageLink(event.target.value)}

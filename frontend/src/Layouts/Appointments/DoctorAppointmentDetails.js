@@ -154,7 +154,7 @@ export default function DoctorAppointmentDetails(credentials) {
     }
   };
 
-  
+
 
   return (
     <div className="container">
@@ -204,7 +204,7 @@ export default function DoctorAppointmentDetails(credentials) {
 
                   </td>
                   <td className="col-6">
-                    
+
                     <button className="btn btn-primary my-4" onClick={handleAddDiagnosesClick}>
                       Add Diagnoses
                     </button>
@@ -217,18 +217,14 @@ export default function DoctorAppointmentDetails(credentials) {
                           value={searchDiagnosisQuery}
                           onChange={handleDiagnosisSearchQueryChange}
                         />
-                        <table className="table table-hover" style={{ maxHeight: "150px", overflowY: "scroll" }}>
-                          <tbody>
-                            {filteredDiagnoses.map((diagnosis) => (
-                              <tr key={diagnosis.id}>
-                                <td className="col-10">{diagnosis.name}</td>
-                                <td className="col-2">
-                                  <button className='btn btn-outline-secondary btn-sm' onClick={() => handleAddDiagnosisClick(diagnosis)}>Add</button>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                        <ul className="list-group" style={{ maxHeight: "150px", overflowY: "scroll" }}>
+                          {filteredDiagnoses.map((diagnosis) => (
+                            <li key={diagnosis.id} className="list-group-item d-flex justify-content-between align-items-center">
+                              {diagnosis.name}
+                              <button className='btn btn-outline-secondary btn-sm' onClick={() => handleAddDiagnosisClick(diagnosis)}>Add</button>
+                            </li>
+                          ))}
+                        </ul>
                       </>
                     )}
                     <br></br>
@@ -242,19 +238,14 @@ export default function DoctorAppointmentDetails(credentials) {
                           value={searchProcedureQuery}
                           onChange={handleProcedureSearchQueryChange}
                         />
-
-                        <table className="table table-hover" style={{ maxHeight: "150px", overflowY: "scroll" }}>
-                          <tbody>
-                            {filteredProcedures.map((procedure) => (
-                              <tr key={procedure.id}>
-                                <td className="col-10">{procedure.name}</td>
-                                <td className="col-2">
-                                  <button className='btn btn-outline-secondary btn-sm' onClick={() => handleAddProcedureClick(procedure)}>Add</button>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                        <ul className="list-group" style={{ maxHeight: "150px", overflowY: "scroll" }}>
+                          {filteredProcedures.map((procedure) => (
+                            <li key={procedure.id} className="list-group-item d-flex justify-content-between align-items-center">
+                              {procedure.name}
+                              <button className="btn btn-outline-secondary btn-sm" onClick={() => handleAddProcedureClick(procedure)}>Add</button>
+                            </li>
+                          ))}
+                        </ul>
                       </>
                     )}
                   </td>
@@ -263,7 +254,7 @@ export default function DoctorAppointmentDetails(credentials) {
                   <td colSpan={2} >
                     <div className="form-floating">
                       <h3>Summary</h3>
-                      <Summary credentials={credentials} appointmentId={id} initialSummary={appointment.summary}/>
+                      <Summary credentials={credentials} appointmentId={id} initialSummary={appointment.summary} />
                     </div>
                   </td>
                 </tr>

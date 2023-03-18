@@ -55,9 +55,9 @@ export default function EditSpecialty(credentials) {
       .then((response) => {
         console.log(response);
         navigate("/specialties")
-        toast.success('Specialty created successfully!', {
+        toast.success('Specialty edited successfully!', {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 1500,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
@@ -68,7 +68,16 @@ export default function EditSpecialty(credentials) {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Error creating specialty. Please try again.")
+        toast.error("Error editing specialty. Please try again.", {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
       });
   };
 
@@ -82,6 +91,7 @@ export default function EditSpecialty(credentials) {
           </label>
           <input
             type="text"
+            required
             className="form-control"
             id="name"
             value={name}
@@ -94,6 +104,7 @@ export default function EditSpecialty(credentials) {
           </label>
           <textarea
             type="text"
+            required
             className="form-control"
             id="description"
             rows="5"

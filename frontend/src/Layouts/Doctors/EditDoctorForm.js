@@ -64,7 +64,7 @@ export default function EditDoctorForm(credentials) {
             );
             toast.success('Doctor account edited successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1500,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -75,7 +75,16 @@ export default function EditDoctorForm(credentials) {
             navigate('/doctors');
         } catch (error) {
             console.error(error);
-            toast.error("Error editing doctor acount. Please try again.");
+            toast.error("Error editing doctor acount. Please try again.", {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
 
@@ -89,6 +98,7 @@ export default function EditDoctorForm(credentials) {
                         </label>
                         <input
                             type="text"
+                            required
                             className="form-control"
                             id="firstName"
                             value={firstName}
@@ -101,6 +111,7 @@ export default function EditDoctorForm(credentials) {
                         </label>
                         <input
                             type="text"
+                            required
                             className="form-control"
                             id="lastName"
                             value={lastName}
@@ -113,6 +124,7 @@ export default function EditDoctorForm(credentials) {
                         </label>
                         <input
                             type="email"
+                            required
                             className="form-control"
                             id="email"
                             value={email}
@@ -125,6 +137,7 @@ export default function EditDoctorForm(credentials) {
                         </label>
                         <select
                             className="form-control"
+                            required
                             id="specialty"
                             value={selectedSpecialty}
                             onChange={(e) => setSelectedSpecialty(e.target.value)}

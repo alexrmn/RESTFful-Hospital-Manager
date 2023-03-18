@@ -46,7 +46,7 @@ export default function EditDiagnosis(credentials) {
             navigate("/diagnoses")
             toast.success('Diagnosis updated successfully!', {
               position: "top-center",
-              autoClose: 5000,
+              autoClose: 1500,
               hideProgressBar: true,
               closeOnClick: true,
               pauseOnHover: true,
@@ -57,7 +57,16 @@ export default function EditDiagnosis(credentials) {
           })
           .catch((error) => {
             console.log(error);
-            toast.error("Error updating diagnosis. Please try again.")
+            toast.error("Error updating diagnosis. Please try again.", {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
           });
       };
 
@@ -71,6 +80,7 @@ export default function EditDiagnosis(credentials) {
                     </label>
                     <input
                         type="text"
+                        required
                         className="form-control"
                         id="name"
                         value={name}

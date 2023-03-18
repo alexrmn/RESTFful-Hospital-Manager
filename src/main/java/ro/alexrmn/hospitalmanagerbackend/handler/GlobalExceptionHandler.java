@@ -4,6 +4,7 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ro.alexrmn.hospitalmanagerbackend.exception.NotAuthorizedException;
@@ -36,6 +37,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotAuthorizedException.class)
     public ResponseEntity<?> handleException(NotAuthorizedException exception) {
+        System.out.println(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
+
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> handleException(BadCredentialsException exception) {
         System.out.println(exception.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
     }

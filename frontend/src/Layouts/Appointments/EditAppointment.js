@@ -99,7 +99,7 @@ export default function EditAppointment(credentials) {
               );
               toast.success('Appointment updated successfully!', {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 1500,
                 hideProgressBar: true,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -113,9 +113,13 @@ export default function EditAppointment(credentials) {
               console.error(error);
               toast.error('Error updating appointment. Please try again.', {
                 position: "top-center",
-                closeOnClick: true,
+                autoClose: 1500,
                 hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
                 draggable: true,
+                progress: undefined,
+                theme: "light",
               });
             }
           };
