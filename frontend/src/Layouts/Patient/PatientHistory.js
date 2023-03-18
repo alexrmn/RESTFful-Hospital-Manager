@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 export default function PatientHistory(credentials) {
 
     const { id } = useParams();
     const [appointments, setAppointments] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAppointments = async () => {
@@ -23,6 +24,10 @@ export default function PatientHistory(credentials) {
             fetchAppointments();
         }
     }, [credentials]);
+
+    const handleViewDetails = (id) => {
+        navigate(`/appointments/${id}/details`);
+    };
 
   return (
     <div>
@@ -47,7 +52,7 @@ export default function PatientHistory(credentials) {
                             <td>
                                 <button
                                     className="btn btn-primary mx-1"
-                                    // onClick={() => ()}
+                                    onClick={handleViewDetails(appointment.id)}
                                 >
                                     View Details
                                 </button> 

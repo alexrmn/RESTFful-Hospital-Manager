@@ -42,7 +42,7 @@ public class Appointment extends BaseEntity {
     @JoinTable(name = "appointment_diagnosis",
             joinColumns = @JoinColumn(name = "appointment_id"),
             inverseJoinColumns = @JoinColumn(name = "diagnosis_id"))
-    private Set<Diagnosis> diagnoses;
+    private Set<Diagnosis> diagnoses = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -50,7 +50,7 @@ public class Appointment extends BaseEntity {
             joinColumns = @JoinColumn(name = "appointment_id"),
             inverseJoinColumns = @JoinColumn(name = "procedure_id")
     )
-    private Set<Procedure> procedures;
+    private Set<Procedure> procedures = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -63,10 +63,12 @@ public class Appointment extends BaseEntity {
     @Column(length = 2000)
     private String summary;
 
+    @Override
+    public String toString(){
+        return "Appointment id: " + this.getId();
+    }
+
     public void addDiagnosis(Diagnosis diagnosis) {
-        if (this.diagnoses == null) {
-            this.diagnoses = new HashSet<>();
-        }
         this.diagnoses.add(diagnosis);
     }
 
@@ -76,9 +78,6 @@ public class Appointment extends BaseEntity {
     }
 
     public void addProcedure(Procedure procedure) {
-        if (this.procedures == null) {
-            this.procedures = new HashSet<>();
-        }
         this.procedures.add(procedure);
     }
 
@@ -98,7 +97,6 @@ public class Appointment extends BaseEntity {
         this.medications.remove(medication);
         medication.getAppointments().remove(this);
     }
-
     public AppointmentDto toDto(){
         return AppointmentDto.builder()
                 .id(this.getId())
@@ -108,8 +106,8 @@ public class Appointment extends BaseEntity {
                 .specialty(specialty)
                 .diagnoses(this.getDiagnoses())
                 .procedures(this.procedures)
-                .medications(this.medications)
                 .timeSlot(this.timeSlot)
+                .summary(summary)
                 .build();
     }
 

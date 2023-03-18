@@ -23,4 +23,12 @@ public interface AppointmentService {
     AppointmentDto getAppointment(Long appointmentId);
 
     void addDiagnosisToAppointment(Long appointmentId, Long diagnosisId);
+
+    void removeDiagnosisFromAppointment(Long appointmentId, Long diagnosisId);
+
+    void addProcedureToAppointment(Long appointmentId, Long procedureId);
+
+    void removeProcedureFromAppointment(Long appointmentId, Long procedureId);
+
+    AppointmentDto setSummary(Long appointmentId, String summary);
 }

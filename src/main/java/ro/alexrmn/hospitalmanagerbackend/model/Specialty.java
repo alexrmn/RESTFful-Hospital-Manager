@@ -39,4 +39,9 @@ public class Specialty extends NamedResource {
                 .build();
     }
 
+    @Override
+    public String toString() {
+        return this.getName();
+    }
+
 }

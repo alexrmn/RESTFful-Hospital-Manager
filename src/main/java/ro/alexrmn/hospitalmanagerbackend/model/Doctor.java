@@ -43,6 +43,12 @@ public class Doctor extends User {
                 .email(this.getEmail())
                 .specialtyName(specialtyName)
                 .build();
-
     }
+
+    @Override
+    public String toString() {
+            return "Dr " + getFirstName() + " " + getLastName();
+    }
+
+
 }

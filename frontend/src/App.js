@@ -28,6 +28,7 @@ import EditDiagnosis from './Layouts/Diagnoses/EditDiagnosis';
 import ProceduresList from './Layouts/Procedures/ProceduresList';
 import EditProcedure from './Layouts/Procedures/EditProcedure';
 import DoctorAppointmentDetails from './Layouts/Appointments/DoctorAppointmentDetails';
+import AppointmentDetails from './Layouts/Appointments/AppointmentDetails';
 
 
 
@@ -90,6 +91,7 @@ function App() {
               <Route path="/" element={<DoctorDashboard {...credentials}/>} />
               <Route path="/appointments" element={<ViewAppointmentsByDoctor {...credentials} />} />
               <Route path="/appointments/:id" element={<DoctorAppointmentDetails {...credentials} />} />
+              <Route path="/appointments/:id/details" element={<AppointmentDetails {...credentials} />} />
               <Route path="/patients/search" element={<SearchForPatient {...credentials} />} />
               <Route path="/patients/:id/history" element={<PatientHistory {...credentials} />} />
 
@@ -103,6 +105,8 @@ function App() {
               <Route path="/appointments/upcoming" element={<UpcomingAppointments {...credentials} />} />
               <Route path="/appointments/history" element={<AppointmentsHistory {...credentials} />} />
               <Route path="/appointments/:id/edit" element={<EditAppointment {...credentials} />} />
+              <Route path="/appointments/:id/details" element={<AppointmentDetails {...credentials} />} />
+
             </>
           )}
           {!credentials && <Route path="/" element={<SignInForm setCredentials={setCredentials} />} />}

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 export default function AppointmentsHistory(credentials) {
 
     const [appointments, setAppointments] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAppointments = async () => {
@@ -21,6 +23,10 @@ export default function AppointmentsHistory(credentials) {
             fetchAppointments();
         }
     }, [credentials]);
+
+    const handleViewDetails = (id) => {
+        navigate(`/appointments/${id}/details`);
+    };
   return (
     <div>
         <h1 className='mt-5'>My Appointment History</h1>
@@ -42,7 +48,7 @@ export default function AppointmentsHistory(credentials) {
                             <td>
                                 <button
                                     className="btn btn-primary mx-1"
-                                    // onClick={() => ()}
+                                    onClick={handleViewDetails(appointment.id)}
                                 >
                                     View Details
                                 </button>

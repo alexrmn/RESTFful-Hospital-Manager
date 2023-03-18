@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import ro.alexrmn.hospitalmanagerbackend.model.dto.SummaryDto;
 import ro.alexrmn.hospitalmanagerbackend.service.AppointmentService;
 import ro.alexrmn.hospitalmanagerbackend.validators.ObjectValidator;
 import ro.alexrmn.hospitalmanagerbackend.model.dto.AppointmentDto;
@@ -64,17 +65,44 @@ public class AppointmentController {
     }
 
     @GetMapping("{appointmentId}")
-    @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
     public ResponseEntity<AppointmentDto> getAppointment(@PathVariable Long appointmentId) {
         AppointmentDto appointmentDto = appointmentService.getAppointment(appointmentId);
         return ResponseEntity.ok().body(appointmentDto);
     }
 
-    @PostMapping("/{appointmentId}/diagnosis/{diagnosisId}")
+    @PostMapping("/{appointmentId}/diagnoses/{diagnosisId}")
     @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
     public HttpStatus addDiagnosisToAppointment(@PathVariable Long appointmentId, @PathVariable Long diagnosisId) {
         appointmentService.addDiagnosisToAppointment(appointmentId, diagnosisId);
         return HttpStatus.ACCEPTED;
+    }
+
+    @DeleteMapping("/{appointmentId}/diagnoses/{diagnosisId}")
+    @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
+    public HttpStatus removeDiagnosisFromAppointment(@PathVariable Long appointmentId, @PathVariable Long diagnosisId) {
+        appointmentService.removeDiagnosisFromAppointment(appointmentId, diagnosisId);
+        return HttpStatus.ACCEPTED;
+    }
+
+    @PostMapping("/{appointmentId}/procedures/{procedureId}")
+    @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
+    public HttpStatus addProcedureToAppointment(@PathVariable Long appointmentId, @PathVariable Long procedureId) {
+        appointmentService.addProcedureToAppointment(appointmentId, procedureId);
+        return HttpStatus.ACCEPTED;
+    }
+
+    @DeleteMapping("/{appointmentId}/procedures/{procedureId}")
+    @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
+    public HttpStatus removeProcedureFromAppointment(@PathVariable Long appointmentId, @PathVariable Long procedureId) {
+        appointmentService.removeProcedureFromAppointment(appointmentId, procedureId);
+        return HttpStatus.ACCEPTED;
+    }
+
+    @PostMapping("/{appointmentId}/summary")
+    @PreAuthorize("hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')")
+    public ResponseEntity<AppointmentDto> addSummaryToAppointment(@PathVariable Long appointmentId, @RequestBody SummaryDto summaryDto) {
+        AppointmentDto appointmentDto = appointmentService.setSummary(appointmentId, summaryDto.getSummary());
+        return ResponseEntity.ok().body(appointmentDto);
     }
 
 

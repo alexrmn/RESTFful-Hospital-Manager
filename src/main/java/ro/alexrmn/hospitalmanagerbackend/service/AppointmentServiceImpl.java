@@ -3,7 +3,6 @@ package ro.alexrmn.hospitalmanagerbackend.service;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ro.alexrmn.hospitalmanagerbackend.exception.NotAuthorizedException;
@@ -28,6 +27,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final TimeSlotRepository timeSlotRepository;
     private final SpecialtyRepository specialtyRepository;
     private final DiagnosisRepository diagnosisRepository;
+    private final ProcedureRepository procedureRepository;
 
     public AppointmentDto createAppointment(CreateAppointmentDto createAppointmentDto) {
         Doctor doctor = doctorRepository.findById(createAppointmentDto.getDoctorId())
@@ -147,6 +147,45 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .orElseThrow(() -> new EntityNotFoundException("Diagnosis not found"));
         appointment.addDiagnosis(diagnosis);
         appointmentRepository.save(appointment);
+    }
+
+    @Override
+    public void removeDiagnosisFromAppointment(Long appointmentId, Long diagnosisId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        Diagnosis diagnosis = diagnosisRepository.findById(diagnosisId)
+                .orElseThrow(() -> new EntityNotFoundException("Diagnosis not found"));
+        appointment.removeDiagnosis(diagnosis);
+        appointmentRepository.save(appointment);
+    }
+
+    @Override
+    public void addProcedureToAppointment(Long appointmentId, Long procedureId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        Procedure procedure = procedureRepository.findById(procedureId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        appointment.addProcedure(procedure);
+        appointmentRepository.save(appointment);
+    }
+
+    @Override
+    public void removeProcedureFromAppointment(Long appointmentId, Long procedureId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        Procedure procedure = procedureRepository.findById(procedureId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        appointment.removeProcedure(procedure);
+        appointmentRepository.save(appointment);
+    }
+
+    @Override
+    public AppointmentDto setSummary(Long appointmentId, String summary) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        appointment.setSummary(summary);
+        appointmentRepository.save(appointment);
+        return appointment.toDto();
     }
 
     private boolean appointmentBelongsToUser(Appointment appointment) {

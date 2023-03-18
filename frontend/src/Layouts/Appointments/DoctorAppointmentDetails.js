@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Summary from "./Summary";
 
 
 export default function DoctorAppointmentDetails(credentials) {
@@ -14,17 +15,18 @@ export default function DoctorAppointmentDetails(credentials) {
   const [searchDiagnosisQuery, setSearchDiagnosisQuery] = useState('');
   const [searchProcedureQuery, setSearchProcedureQuery] = useState('');
 
+  const fetchAppointment = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/appointments/${id}`, {
+        headers: { Authorization: `Bearer ${credentials.token}` },
+      });
+      setAppointment(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchAppointment = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/appointments/${id}`, {
-          headers: { Authorization: `Bearer ${credentials.token}` },
-        });
-        setAppointment(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
     const fetchDiagnoses = async () => {
       try {
@@ -87,24 +89,72 @@ export default function DoctorAppointmentDetails(credentials) {
   const handleAddDiagnosisClick = async (diagnosis) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/appointments/${id}/diagnosis/${diagnosis.id}`,
+        `http://localhost:8080/appointments/${id}/diagnoses/${diagnosis.id}`,
         null,
         {
           headers: { Authorization: `Bearer ${credentials.token}` },
         }
       );
       console.log("Diagnosis added successfully");
-      // add new diagnosis to appointment object in state
-      setAppointment((prevState) => ({
-        ...prevState,
-        diagnoses: [...prevState.diagnoses, diagnosis],
-      }));
+      //refresh Appointment
+      fetchAppointment();
 
     } catch (error) {
       console.error(error);
     }
   };
 
+  const handleAddProcedureClick = async (procedure) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/appointments/${id}/procedures/${procedure.id}`,
+        null,
+        {
+          headers: { Authorization: `Bearer ${credentials.token}` },
+        }
+      );
+      console.log("Procedure added successfully");
+      // refresh Appointment
+      fetchAppointment();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleRemoveDiagnosisClick = async (diagnosis) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/appointments/${id}/diagnoses/${diagnosis.id}`,
+        {
+          headers: { Authorization: `Bearer ${credentials.token}` },
+        }
+      );
+      console.log("Diagnosis removed successfully");
+      //refresh Appointment
+      fetchAppointment();
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleRemoveProcedureClick = async (procedure) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/appointments/${id}/procedures/${procedure.id}`,
+        {
+          headers: { Authorization: `Bearer ${credentials.token}` },
+        }
+      );
+      console.log("Procedure removed successfully");
+      // Refresh appointment
+      fetchAppointment();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
 
   return (
     <div className="container">
@@ -123,27 +173,38 @@ export default function DoctorAppointmentDetails(credentials) {
                   <td className="col-6">
                     <div className="text-left mt-3">
                       <h4>Diagnoses:</h4>
-                      <ul className="list-group">
-                        {appointment.diagnoses.map((diagnosis) => (
-                          <li key={diagnosis.id} className="list-group-item">
-                            {diagnosis.name}
-                          </li>
-                        ))}
-                      </ul>
+                      <table className="table table-hover" style={{ maxHeight: "150px", overflowY: "scroll" }}>
+                        <tbody>
+                          {appointment.diagnoses.map((diagnosis) => (
+                            <tr key={diagnosis.id}>
+                              <td className="col-10">{diagnosis.name}</td>
+                              <td className="col-2">
+                                <button className='btn btn-outline-secondary btn-sm' onClick={() => handleRemoveDiagnosisClick(diagnosis)}>Remove</button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                     <div className="text-left mb-5">
                       <h4>Procedures:</h4>
-                      <ul className="list-group">
-                        {appointment.procedures.map((procedure) => (
-                          <li key={procedure.id} className="list-group-item">
-                            {procedure.name}
-                          </li>
-                        ))}
-                      </ul>
+                      <table className="table table-hover" style={{ maxHeight: "150px", overflowY: "scroll" }}>
+                        <tbody>
+                          {appointment.procedures.map((procedure) => (
+                            <tr key={procedure.id}>
+                              <td className="col-10">{procedure.name}</td>
+                              <td className="col-2">
+                                <button className='btn btn-outline-secondary btn-sm' onClick={() => handleRemoveProcedureClick(procedure)}>Remove</button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
 
                   </td>
                   <td className="col-6">
+                    
                     <button className="btn btn-primary my-4" onClick={handleAddDiagnosesClick}>
                       Add Diagnoses
                     </button>
@@ -156,18 +217,18 @@ export default function DoctorAppointmentDetails(credentials) {
                           value={searchDiagnosisQuery}
                           onChange={handleDiagnosisSearchQueryChange}
                         />
-                        <ul className="list-group">
-                          {filteredDiagnoses.map((diagnosis) => (
-                            <li key={diagnosis.id} className="list-group-item">
-                              <table className="table">
-                                <td className="col-11">{diagnosis.name}</td>
-                                <td className="col-1">
-                                  <button onClick={() => handleAddDiagnosisClick(diagnosis)}>add</button>
+                        <table className="table table-hover" style={{ maxHeight: "150px", overflowY: "scroll" }}>
+                          <tbody>
+                            {filteredDiagnoses.map((diagnosis) => (
+                              <tr key={diagnosis.id}>
+                                <td className="col-10">{diagnosis.name}</td>
+                                <td className="col-2">
+                                  <button className='btn btn-outline-secondary btn-sm' onClick={() => handleAddDiagnosisClick(diagnosis)}>Add</button>
                                 </td>
-                              </table>
-                            </li>
-                          ))}
-                        </ul>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </>
                     )}
                     <br></br>
@@ -182,15 +243,28 @@ export default function DoctorAppointmentDetails(credentials) {
                           onChange={handleProcedureSearchQueryChange}
                         />
 
-                        <ul className="list-group">
-                          {filteredProcedures.map((procedure) => (
-                            <li key={procedure.id} className="list-group-item">
-                              {procedure.name}
-                            </li>
-                          ))}
-                        </ul>
+                        <table className="table table-hover" style={{ maxHeight: "150px", overflowY: "scroll" }}>
+                          <tbody>
+                            {filteredProcedures.map((procedure) => (
+                              <tr key={procedure.id}>
+                                <td className="col-10">{procedure.name}</td>
+                                <td className="col-2">
+                                  <button className='btn btn-outline-secondary btn-sm' onClick={() => handleAddProcedureClick(procedure)}>Add</button>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </>
                     )}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={2} >
+                    <div className="form-floating">
+                      <h3>Summary</h3>
+                      <Summary credentials={credentials} appointmentId={id} initialSummary={appointment.summary}/>
+                    </div>
                   </td>
                 </tr>
               </tbody>

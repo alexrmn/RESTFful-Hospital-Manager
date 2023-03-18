@@ -24,11 +24,11 @@ export default function ViewAppointmentsByDoctor(credentials) {
         }
     }, [credentials]);
 
-  return (
-    <div className='mt-5'>
-        <h1>My Scheduled Appointments</h1>
+    return (
+        <div className='mt-5'>
+            <h1>My Scheduled Appointments</h1>
 
-        <table className="table mt-5">
+            <table className="table mt-5">
                 <thead>
                     <tr>
                         <th scope="col">Date</th>
@@ -42,9 +42,14 @@ export default function ViewAppointmentsByDoctor(credentials) {
                         <tr key={appointment.id}>
                             <td>{appointment.date}</td>
                             <td>{`${appointment.patient.firstName} ${appointment.patient.lastName}`}</td>
-                            <td>{appointment.diagnoses}</td>
-                            
-                            
+                            {/* <td>
+                                <ol>{appointment.diagnoses.map((diagnosis) => (
+                                    <li key={diagnosis.id}> {diagnosis.name}</li>
+                                ))}
+                                </ol>
+                            </td> */}
+
+
                             <td>
                                 <button
                                     className="btn btn-primary mx-1"
@@ -52,13 +57,13 @@ export default function ViewAppointmentsByDoctor(credentials) {
                                 >
                                     View Appointment
                                 </button>
-                                
+
                             </td>
 
                         </tr>
                     ))}
                 </tbody>
             </table>
-    </div>
-  )
+        </div>
+    )
 }
