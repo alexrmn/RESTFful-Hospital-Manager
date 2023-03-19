@@ -123,15 +123,7 @@ export default function EditAppointment(credentials) {
               });
             }
           };
-
-          const handleClick = (e) => {
-            console.log(specialtyId);
-            console.log(doctorId);
-            console.log(date);
-            console.log(timeslotId);
-          }
       
-
           return (
             <div className='col-3 mx-auto mt-5'>
           
@@ -208,7 +200,7 @@ export default function EditAppointment(credentials) {
                   Save
                 </button>
               </form>
-              <button onClick={(e) => handleClick()}>Click</button>
+             
             </div>
           );
 }
