@@ -1,5 +1,6 @@
 package ro.alexrmn.hospitalmanagerbackend.service;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class DiagnosisServiceImpl implements DiagnosisService{
     private  final DiagnosisRepository diagnosisRepository;
     @Override
     public DiagnosisDto save(DiagnosisDto diagnosisDto) {
+        if(diagnosisRepository.existsByName(diagnosisDto.getName())) {
+            throw  new EntityExistsException("Diagnoses with that name already exists!");
+        }
         Diagnosis diagnosis = Diagnosis.builder()
                 .name(diagnosisDto.getName())
                 .build();

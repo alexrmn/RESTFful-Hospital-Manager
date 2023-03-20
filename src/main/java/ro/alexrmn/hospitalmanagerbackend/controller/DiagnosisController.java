@@ -51,8 +51,7 @@ public class DiagnosisController {
 
     @PutMapping("/{diagnosisId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<DiagnosisDto> updateDiagnosis(@RequestBody DiagnosisDto diagnosisDto,
-                                                        @PathVariable Long diagnosisId) {
+    public ResponseEntity<DiagnosisDto> updateDiagnosis(@RequestBody DiagnosisDto diagnosisDto, @PathVariable Long diagnosisId) {
         validator.validate(diagnosisDto);
         DiagnosisDto updatedDiagnosis = diagnosisService.update(diagnosisId, diagnosisDto);
         return  ResponseEntity.ok().body(updatedDiagnosis);
