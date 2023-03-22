@@ -65,7 +65,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .password("doctor1")
                 .specialtyName("Cardiology")
                 .build();
-        Doctor doctor1 = doctorService.saveDoctor(createDoctorDto1);
+//        Doctor doctor1 = doctorService.saveDoctor(createDoctorDto1);
 
 
         //creating patients
@@ -76,7 +76,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .email("patient1@mail.com")
                 .password("patient1")
                 .build();
-        Patient patient1 = patientService.savePatient(createPatientDto1);
+//        Patient patient1 = patientService.savePatient(createPatientDto1);
 
         //creating admins
         CreateAdminDto createAdminDto1 = CreateAdminDto.builder()
@@ -89,13 +89,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         adminService.saveAdmin(createAdminDto1);
 
         //creatingAppointments
-//        CreateAppointmentDto createAppointmentDto1 = CreateAppointmentDto.builder()
-//                .date(LocalDate.now())
-//                .doctor(doctor1)
-//                .patient(patient1)
-//                .specialty(specialtyRepository.findByName("Cardiology").get())
-//                .build();
-//        appointmentService.saveAppointment(createAppointmentDto1);
+
 
     }
 }

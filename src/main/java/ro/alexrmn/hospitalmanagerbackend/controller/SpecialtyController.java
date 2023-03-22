@@ -35,10 +35,10 @@ public class SpecialtyController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Specialty> createSpecialty(@RequestBody SpecialtyDto specialtyDto) {
+    public ResponseEntity<SpecialtyDto> createSpecialty(@RequestBody SpecialtyDto specialtyDto) {
         specialtyValidator.validate(specialtyDto);
-        Specialty specialty = specialtyService.save(specialtyDto);
-        return ResponseEntity.ok().body(specialty);
+        SpecialtyDto savedSpecialtyDto = specialtyService.save(specialtyDto);
+        return ResponseEntity.ok().body(savedSpecialtyDto);
     }
 
     @DeleteMapping("/{specialtyId}")
@@ -50,10 +50,10 @@ public class SpecialtyController {
 
     @PutMapping("/{specialtyId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Specialty> updateSpecialty(@RequestBody SpecialtyDto specialtyDto, @PathVariable Long specialtyId) {
+    public ResponseEntity<SpecialtyDto> updateSpecialty(@RequestBody SpecialtyDto specialtyDto, @PathVariable Long specialtyId) {
         specialtyValidator.validate(specialtyDto);
-        Specialty specialty = specialtyService.update(specialtyId, specialtyDto);
-        return ResponseEntity.ok().body(specialty);
+        SpecialtyDto updatedSpecialtyDto = specialtyService.update(specialtyId, specialtyDto);
+        return ResponseEntity.ok().body(updatedSpecialtyDto);
     }
 
 }

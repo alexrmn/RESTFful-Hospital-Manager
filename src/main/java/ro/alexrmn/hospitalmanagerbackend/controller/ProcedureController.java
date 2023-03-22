@@ -38,8 +38,8 @@ public class ProcedureController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProcedureDto> createProcedure(@RequestBody ProcedureDto procedureDto) {
         validator.validate(procedureDto);
-        ProcedureDto savedProcedure = procedureService.save(procedureDto);
-        return ResponseEntity.ok().body(savedProcedure);
+        ProcedureDto savedProcedureDto = procedureService.save(procedureDto);
+        return ResponseEntity.ok().body(savedProcedureDto);
     }
 
     @DeleteMapping("/{procedureId}")
@@ -54,8 +54,8 @@ public class ProcedureController {
     public ResponseEntity<ProcedureDto> updateProcedure(@RequestBody ProcedureDto procedureDto,
                                                         @PathVariable Long procedureId) {
         validator.validate(procedureDto);
-        ProcedureDto updatedProcedure = procedureService.update(procedureId, procedureDto);
-        return  ResponseEntity.ok().body(updatedProcedure);
+        ProcedureDto updatedProcedureDto = procedureService.update(procedureId, procedureDto);
+        return  ResponseEntity.ok().body(updatedProcedureDto);
     }
 
 }

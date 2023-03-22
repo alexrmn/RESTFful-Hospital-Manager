@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface AdminService {
 
-    Admin saveAdmin(CreateAdminDto createAdminDto);
+    AdminDto saveAdmin(CreateAdminDto createAdminDto);
 
     AdminDto getAdmin(Long id);
 
     List<AdminDto> getAdmins();
 
-    Admin updateAdmin(Long id, AdminDto adminDto);
+    AdminDto updateAdmin(Long id, AdminDto adminDto);
 
     void deleteAdmin(Long id);
 

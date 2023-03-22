@@ -9,11 +9,11 @@ import java.util.List;
 public interface SpecialtyService {
     List<SpecialtyDto> getSpecialties();
 
-    Specialty save(SpecialtyDto specialtyDto);
+    SpecialtyDto save(SpecialtyDto specialtyDto);
 
     void delete(Long specialtyId);
 
     SpecialtyDto getSpecialty(Long specialtyId);
 
-    Specialty update(Long id, SpecialtyDto specialtyDto);
+    SpecialtyDto update(Long id, SpecialtyDto specialtyDto);
 }

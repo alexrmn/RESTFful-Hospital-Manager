@@ -1,5 +1,6 @@
 package ro.alexrmn.hospitalmanagerbackend.service;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class ProcedureServiceImpl implements ProcedureService{
 
     @Override
     public ProcedureDto save(ProcedureDto procedureDto) {
+        if(procedureRepository.existsByName(procedureDto.getName())) {
+            throw  new EntityExistsException("Diagnoses with that name already exists!");
+        }
         Procedure procedure = Procedure.builder()
                 .name(procedureDto.getName())
                 .build();

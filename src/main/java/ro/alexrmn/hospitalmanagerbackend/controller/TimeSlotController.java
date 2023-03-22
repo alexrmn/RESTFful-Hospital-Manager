@@ -22,10 +22,4 @@ public class TimeSlotController {
         List<TimeSlot> timeSlots = timeSlotService.getFreeTimeSlotsByDateAndDoctor(date, doctorId);
         return ResponseEntity.ok().body(timeSlots);
     }
-
-    @GetMapping("1")
-    public LocalDate getTimeSlots() {
-
-        return LocalDate.now();
-    }
 }

@@ -41,19 +41,19 @@ public class PatientController {
     
 
     @PostMapping
-    public ResponseEntity<Patient> createPatient(@RequestBody CreatePatientDto createPatientDto){
+    public ResponseEntity<PatientDto> createPatient(@RequestBody CreatePatientDto createPatientDto){
         createPatientValidator.validate(createPatientDto);
-        Patient patient = patientService.savePatient(createPatientDto);
-        return  ResponseEntity.ok().body(patient);
+        PatientDto savedPatientDto = patientService.savePatient(createPatientDto);
+        return  ResponseEntity.ok().body(savedPatientDto);
     }
 
     @PutMapping("/{patientId}")
-    public ResponseEntity<Patient> updatePatient(@RequestBody PatientDto patientDto,
+    public ResponseEntity<PatientDto> updatePatient(@RequestBody PatientDto patientDto,
                                                  @PathVariable Long patientId){
 
         editPatientValidator.validate(patientDto);
-        Patient patient = patientService.updatePatient(patientId, patientDto);
-        return ResponseEntity.accepted().body(patient);
+        PatientDto updatePatientDto = patientService.updatePatient(patientId, patientDto);
+        return ResponseEntity.accepted().body(updatePatientDto);
     }
 
     @DeleteMapping("/{patientId}")

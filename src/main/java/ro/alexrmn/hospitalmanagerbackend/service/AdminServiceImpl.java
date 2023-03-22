@@ -26,7 +26,7 @@ public class AdminServiceImpl implements AdminService {
     private final PasswordEncoder encoder;
     private final RoleRepository roleRepository;
     @Override
-    public Admin saveAdmin(CreateAdminDto createAdminDto) {
+    public AdminDto saveAdmin(CreateAdminDto createAdminDto) {
         if(userRepository.existsByUsername(createAdminDto.getUsername())) {
             throw new EntityExistsException("Couldn't create admin. A user with that username already exists");
         }
@@ -44,7 +44,7 @@ public class AdminServiceImpl implements AdminService {
                 .roles(Set.of(role))
                 .build();
 
-        return adminRepository.save(admin);
+        return adminRepository.save(admin).toDto();
     }
 
     @Override
@@ -62,13 +62,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin updateAdmin(Long id, AdminDto adminDto) {
+    public AdminDto updateAdmin(Long id, AdminDto adminDto) {
         Admin admin = adminRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Admin not found"));
         admin.setFirstName(adminDto.getFirstName());
         admin.setLastName(adminDto.getLastName());
         admin.setEmail(adminDto.getEmail());
-        return adminRepository.save(admin);
+        return adminRepository.save(admin).toDto();
     }
 
     @Override

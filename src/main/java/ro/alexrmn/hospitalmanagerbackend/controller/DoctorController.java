@@ -41,8 +41,8 @@ public class DoctorController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DoctorDto> createDoctor(@RequestBody CreateDoctorDto createDoctorDto) {
         createDoctorValidator.validate(createDoctorDto);
-        Doctor doctor = doctorService.saveDoctor(createDoctorDto);
-        return ResponseEntity.accepted().body(doctor.toDto());
+        DoctorDto savedDoctorDto = doctorService.saveDoctor(createDoctorDto);
+        return ResponseEntity.accepted().body(savedDoctorDto);
     }
 
     @PutMapping("/{doctorId}")
@@ -50,8 +50,8 @@ public class DoctorController {
     public ResponseEntity<DoctorDto> updateDoctor
             (@RequestBody DoctorDto doctorDto, @PathVariable Long doctorId){
         editDoctorValidator.validate(doctorDto);
-        Doctor doctor = doctorService.updateDoctor(doctorId, doctorDto);
-        return ResponseEntity.accepted().body(doctor.toDto());
+        DoctorDto updatedDoctorDto = doctorService.updateDoctor(doctorId, doctorDto);
+        return ResponseEntity.accepted().body(updatedDoctorDto);
     }
 
     @DeleteMapping("/{doctorId}")

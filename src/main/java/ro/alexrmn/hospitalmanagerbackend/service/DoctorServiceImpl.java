@@ -30,7 +30,7 @@ public class DoctorServiceImpl implements DoctorService{
     private final RoleRepository roleRepository;
 
     @Override
-    public Doctor saveDoctor(CreateDoctorDto createDoctorDto) {
+    public DoctorDto saveDoctor(CreateDoctorDto createDoctorDto) {
         if(userRepository.existsByUsername(createDoctorDto.getUsername())) {
             throw new EntityExistsException("Couldn't create doctor. A user with that username already exists");
         }
@@ -54,7 +54,7 @@ public class DoctorServiceImpl implements DoctorService{
                 .roles(Set.of(role))
                 .build();
 
-        return doctorRepository.save(doctor);
+        return doctorRepository.save(doctor).toDto();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class DoctorServiceImpl implements DoctorService{
     }
 
     @Override
-    public Doctor updateDoctor(Long id, DoctorDto doctorDto) {
+    public DoctorDto updateDoctor(Long id, DoctorDto doctorDto) {
         Specialty specialty = specialtyRepository.findByName(doctorDto.getSpecialtyName())
                 .orElseThrow(() -> new EntityNotFoundException("Couldn't update doctor. Specialty not found."));
         Doctor doctor = doctorRepository.findById(id)
@@ -82,7 +82,7 @@ public class DoctorServiceImpl implements DoctorService{
         doctor.setLastName(doctorDto.getLastName());
         doctor.setEmail(doctorDto.getEmail());
         doctor.setSpecialty(specialty);
-        return doctorRepository.save(doctor);
+        return doctorRepository.save(doctor).toDto();
     }
 
     @Override

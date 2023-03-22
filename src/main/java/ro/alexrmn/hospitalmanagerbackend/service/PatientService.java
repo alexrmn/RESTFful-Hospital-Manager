@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface PatientService {
 
-    Patient savePatient(CreatePatientDto createPatientDto);
+    PatientDto savePatient(CreatePatientDto createPatientDto);
 
     PatientDto getPatient(Long id);
 
     List<PatientDto> getPatients();
 
-    Patient updatePatient(Long id, PatientDto patientDto);
+    PatientDto updatePatient(Long id, PatientDto patientDto);
 
     void deletePatient(Long id);
 }

@@ -38,8 +38,8 @@ public class DiagnosisController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<DiagnosisDto> createDiagnosis(@RequestBody DiagnosisDto diagnosisDto) {
         validator.validate(diagnosisDto);
-        DiagnosisDto savedDiagnosis = diagnosisService.save(diagnosisDto);
-        return ResponseEntity.ok().body(savedDiagnosis);
+        DiagnosisDto savedDiagnosisDto = diagnosisService.save(diagnosisDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedDiagnosisDto);
     }
 
     @DeleteMapping("/{diagnosisId}")

@@ -28,7 +28,7 @@ public class PatientServiceImpl implements PatientService {
     private final RoleRepository roleRepository;
 
     @Override
-    public Patient savePatient(CreatePatientDto createPatientDto) {
+    public PatientDto savePatient(CreatePatientDto createPatientDto) {
         if(userRepository.existsByUsername(createPatientDto.getUsername())) {
             throw new EntityExistsException("Couldn't create account. A user with that username already exists");
         }
@@ -48,7 +48,7 @@ public class PatientServiceImpl implements PatientService {
                 .roles(Set.of(role))
                 .build();
 
-        return patientRepository.save(patient);
+        return patientRepository.save(patient).toDto();
     }
 
     @Override
@@ -65,14 +65,14 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updatePatient(Long id, PatientDto patientDto) {
+    public PatientDto updatePatient(Long id, PatientDto patientDto) {
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
 
         patient.setFirstName(patientDto.getFirstName());
         patient.setLastName(patientDto.getLastName());
         patient.setPhoneNumber(patientDto.getPhoneNumber());
-        return patientRepository.save(patient);
+        return patientRepository.save(patient).toDto();
     }
 
     @Override

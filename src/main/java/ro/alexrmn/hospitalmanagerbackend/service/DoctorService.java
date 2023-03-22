@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface DoctorService {
 
-    Doctor saveDoctor(CreateDoctorDto createDoctorDto);
+    DoctorDto saveDoctor(CreateDoctorDto createDoctorDto);
 
     DoctorDto getDoctor(Long id);
 
     List<DoctorDto> getDoctors();
 
-    Doctor updateDoctor(Long id, DoctorDto doctorDto);
+    DoctorDto updateDoctor(Long id, DoctorDto doctorDto);
 
     void deleteDoctor(Long id);
 

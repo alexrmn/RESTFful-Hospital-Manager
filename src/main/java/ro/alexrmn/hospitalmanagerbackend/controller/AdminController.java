@@ -40,19 +40,19 @@ public class AdminController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Admin> createAdmin(@RequestBody CreateAdminDto createAdminDto){
+    public ResponseEntity<AdminDto> createAdmin(@RequestBody CreateAdminDto createAdminDto){
         createAdminValidator.validate(createAdminDto);
-        Admin admin = adminService.saveAdmin(createAdminDto);
-        return ResponseEntity.accepted().body(admin);
+        AdminDto adminDto = adminService.saveAdmin(createAdminDto);
+        return ResponseEntity.accepted().body(adminDto);
     }
 
     @PutMapping("/{adminId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Admin> updateAdmin(@RequestBody AdminDto adminDto,
+    public ResponseEntity<AdminDto> updateAdmin(@RequestBody AdminDto adminDto,
                                              @PathVariable Long adminId) {
         editAdminValidator.validate(adminDto);
-        Admin admin = adminService.updateAdmin(adminId, adminDto);
-        return ResponseEntity.accepted().body(admin);
+        AdminDto updatedAdminDto = adminService.updateAdmin(adminId, adminDto);
+        return ResponseEntity.accepted().body(updatedAdminDto);
     }
 
     @DeleteMapping("/{adminId}")
